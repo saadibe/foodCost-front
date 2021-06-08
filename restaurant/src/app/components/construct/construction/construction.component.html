@@ -1,0 +1,60 @@
+<div class="ctn">
+  <div class="construction">
+    <div class="header">
+      <div class="const">
+        <h1>Construction</h1>
+        <div class="ui breadcrumb">
+          <a class="section">Accueil</a>
+          <div class="divider"> / </div>
+          <a class="section">Personnalisé</a>
+          <ng-container *ngIf="productType">
+            <div class="divider"> / </div>
+            <a class="section">{{productType.name}}</a>
+            <div class="divider"> / </div>
+            <div class="active section">construction</div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="convert-price">
+        <h1 class="price">{{ price }}DT</h1>
+        <button class="ui button icon circular orange show-side-bottom-bar" (click)="showBottomSideBar()">
+            <i class="bars icon"></i>
+        </button>
+      </div>
+
+    </div>
+    <div class="content list" [ngClass]="{'list-395': product.length>0}" cdkDropList #ELEMENTS="cdkDropList" [cdkDropListData]="product"
+      [cdkDropListConnectedTo]="['ELEMENTS-FOOD-CONSTRUCTOR','ELEMENTS-FOOD-CONSTRUCTOR-2']" (cdkDropListDropped)="onDrop($event)">
+      <div *ngIf="product.length>0" class="count">
+        <i class="shopping orange basket icon"></i>
+        <span>{{product.length}} élément<span *ngIf="product.length > 1">s</span> en {{productType.name}}</span>
+      </div>
+      <div class="elements">
+        
+        <div class="ctn-e" [ngClass]="{'ctn-e16':product.length>0}">
+            <div *ngFor="let i of product" class="element-item" cdkDrag>
+            <a class="ui label blue circular" title="{{i.name}}">{{ i.name }}</a>
+            <a class="ui label circular gramme">Gramme</a>
+            <input #GRAMMAGES (keydown)="controlLength(i.id, $event)" (keyup)="setPrice(i.id, $event)" type="number" [value]="i.gramme" placeholder="gramme..." />
+            <img class="item-img" *ngIf="i.image" src="{{ i.image }}" />
+            <img class="item-img" *ngIf="!i.image" src="assets/defaultimage.png" />
+            
+            </div>
+        </div>
+      </div>
+      
+      <div  class="content-product" [ngClass]="{'go-side-900':product.length>0}" cdkDropList id="CONSTRUCTOR-FOOD"
+        [cdkDropListConnectedTo]="['ELEMENTS-FOOD-CONSTRUCTOR']" [cdkDropListData]="product"
+        (cdkDropListDropped)="onDrop($event)">
+        <h1 *ngIf="!productType" class="select-product-type">Choisissez un produit</h1>
+        <img *ngIf="productType && productType.image" [ngClass]="{ beside: isDragged }" class="product-image" src="{{productType.image}}" />
+        <img *ngIf="productType && !productType.image" [ngClass]="{ beside: isDragged }" class="product-image" src="assets/defaultimage.png" />
+      
+      </div>
+    </div>
+    <div class="actions">
+      <button class="ui big add-product-final button" (click)="rejectProduct()">Annuler</button>
+      <button class="ui blue big button add-product-final">Confirmer</button>
+    </div>
+  </div>
+</div>

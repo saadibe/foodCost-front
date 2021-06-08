@@ -1,0 +1,139 @@
+.filters{
+    margin-left: 0.5rem;
+}
+.popup{
+    width: 100% !important;
+}
+.form-popup{
+    width: 30rem;
+}
+input[type=text],input[type=number]{
+    border-radius: 10px !important;
+    background: #e0e1e2 !important;
+    border: none !important;
+    font-weight: 600;
+    &::placeholder{
+        color: #b0b0b1;
+    }
+}
+.name-search-mode{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.flexy-name{
+    .field:nth-child(1){ flex: 5 !important;}
+    .field:nth-child(2){ flex: 1 !important;}
+    .field:nth-child(3){ 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1 !important;
+    }
+}
+::ng-deep .compare-dropdown{
+    min-width: 6rem !important;
+}
+.flexy-price-3{
+    .field:nth-child(1){ flex: 5 !important;}
+    .field:nth-child(2){ 
+        flex: 1 !important;
+    }
+    .field:nth-child(3){ 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1 !important;
+    }
+}
+.flexy-price-4{
+    .field:nth-child(1){ flex: 2 !important;}
+    .field:nth-child(2){ 
+        flex: 2 !important;
+    }
+
+    .field:nth-child(3){ 
+        flex: 2 !important;
+    }
+    .field:nth-child(4){ 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1 !important;
+    }
+}
+
+.flexy-stock,.flexy-category{
+    display: flex;
+    align-items: center;
+    .field:nth-child(1){
+        flex: 6.5 !important;
+    }
+    .field:nth-child(2){
+        flex: 1 !important;
+    }
+
+    .field:nth-child(3){
+        flex: 1 !important;
+    }
+}
+label{
+    font-weight: 600 !important;
+}
+
+.food{
+    margin-right: 2.8rem;
+}
+.med{
+    margin-left: 0.3rem;
+}
+.des{
+    margin-left: 2.2rem;
+}
+.os{
+    margin-left: 1.2rem;
+}
+.flexy-stock-modal{
+    display: flex;
+    flex-wrap: nowrap !important;
+    align-items: center;
+}
+
+.filter-789{ display: none ;}
+::ng-deep .drop52{
+
+    border-radius: 11px !important;
+    width: 90% !important;
+    background: #e0e1e2 !important;
+    border: none !important;
+    .default{
+        color: rgb(179 179 180) !important;
+        font-weight: 600;
+    }
+}
+.content{
+    form{
+        height: auto;
+    }
+}
+.fvz{
+    transition: all 0.2s;
+    background: #1f2433f3  !important;
+    transform: scale(1.1);
+    &:hover{
+        background: #2185d0  !important;
+        
+    }
+    &:active{
+        transform: scale(1.2);
+    }
+}
+@media screen and (max-width: 972px){
+    .filter-790{ display: none;}
+    .filter-789{display: block;}
+}
+@media screen and (max-width: 790px){
+    .form{
+        height: 55.7rem;
+    }
+}

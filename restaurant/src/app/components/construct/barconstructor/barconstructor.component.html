@@ -1,0 +1,23 @@
+<div class="ui menu inverted my-inverted my-menu vertical pointed">
+  <a class="item logo-item-ctn">
+    <a class="item logo-item"><img class="logo" src="assets/logo.png" /></a>
+  </a>
+  
+  <div class="list" *ngIf="!productHasChoosed">
+    <a class="item element" *ngFor="let p of products" (click)="onGotProduct(p)">
+      <span>{{p.name}}</span>
+      <img src="{{p.image}}" />
+      <img src="assets/defaultimage.png" *ngIf="!p.image"/>
+    </a>
+  </div>
+  
+  <div *ngIf="productHasChoosed" cdkDropList class="list" id="ELEMENTS-FOOD-CONSTRUCTOR" #ELEMENTS="cdkDropList" [cdkDropListData]="elements"
+    [cdkDropListConnectedTo]="['CONSTRUCTOR-FOOD']" draggable="true" (cdkDropListDropped)="onDrop($event)">
+    <a class="item element" *ngFor="let i of elements" (cdkDragEnded)="onDrag(false)" (cdkDragEntered)="onDrag(true)"
+      cdkDrag>
+      <span>{{i.name}}</span> <img src="{{i.image}}" *ngIf="i.image"/>
+      <img src="assets/defaultimage.png" *ngIf="!i.image"/>
+    </a>
+  </div>
+  
+</div>

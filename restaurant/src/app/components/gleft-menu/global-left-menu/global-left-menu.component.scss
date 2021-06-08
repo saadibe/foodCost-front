@@ -1,0 +1,61 @@
+.icon{
+    font-size: large;
+  }
+  .my-menu{
+    height: 100%;
+    padding-top: 0.2rem;
+    width: 13rem !important;
+  }
+  .item{
+    font-weight: 600 !important;
+  }
+  .logo-item-ctn{
+    &:hover{
+      background: unset !important;
+      cursor: unset !important;
+      .logo-item{
+        background: unset !important;
+        cursor: unset !important;
+      }
+    }
+  }
+  
+  .logo-item{
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    .logo{
+        width: 3rem !important;
+        filter: invert(1) drop-shadow(0px 0.5px 1.5px white);
+    }
+  }
+  
+  .notification{
+    position: absolute;
+    top: 0.8rem;
+  }
+  
+  .notif{
+    i{ color: #f58f54;}
+  }
+  
+  .pulse-notification{
+    animation: pulse 1.25s infinite;
+  }
+  
+  @keyframes pulse {
+      0% {
+          transform: scale(0.90);
+          box-shadow: 0 0 0 0 rgba(255, 123, 0, 0.7);
+      }
+      70% {
+          transform: scale(1);
+          box-shadow: 0 0 0 11px rgba(248, 124, 41, 0);
+      }
+  
+      100% {
+          transform: scale(0.90);
+          box-shadow: 0 0 0 0 rgba(201, 15, 15, 0);
+      }
+  }

@@ -1,0 +1,128 @@
+<div class="side-header">
+        
+    <h1>
+        
+        <span class="indic">
+            <span *ngIf="action == formAction.CREATE">Création d'élément</span>
+            <span *ngIf="action == formAction.EDIT">Modification d'élément</span>
+            {{ (element == null)? '' : "#"+element.id}}
+        </span>
+
+        <i class="trash alternate icon red remove-product" (click)="remove()" *ngIf="element != null"></i>
+    </h1>
+    <div class="ui breadcrumb">
+        <a class="section">Accueil</a>
+        <div class="divider"> / </div>
+        <a class="section">élément</a>
+        <div class="divider"> / </div>
+        <div class="active section">{{ (action == formAction.CREATE)?'création':'modification' }}</div>
+      </div>
+</div>
+
+<div class="view">
+    <input type="file" (change)="onFileChanged($event)" id="image-file-upload-1">
+
+    <form autocomplete="off" class="ui form"  [formGroup]="elementForm.elementForm" novalidate>
+        <div class="field image-field">
+            <div class="ctn" (click)="showImageFileUpload()">
+                <img src="assets/defaultimage.png" id="current-image-element" class="ui image small circular" *ngIf="element == null || !element?.image"/>
+                <img src="{{element.image}}" id="current-image-element" class="ui image small circular" *ngIf="element != null && element.image" />
+                <i class="download icon"></i>
+            </div>
+        </div>
+        <div class="field">
+
+            <div class="two fields">
+                <div class="field">
+                    <label>Nom d'élément</label>
+                    <input type="text" formControlName="name" name="name" placeholder="nom d'element..."/>
+                </div>
+                <div class="field">
+                    <label class="compose-field-label">
+                        <span>catégorie</span>
+                        <a>Crée une nouvelle catégorie</a>
+                      </label>
+
+                    <div class="ui small fluid multiple search selection dropdown" id="categoryelement-product-dropdown">
+                        <input type="hidden" name="country">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Catégorie</div>
+                        <div class="menu">
+                            <div *ngFor="let cat of categorys" class="item" [attr.data-value]="cat.id">{{cat.label}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <div class="two fields">
+                <div class="field">
+                    <label>Prix d'achat/Kg</label>
+                    <input type="number" formControlName="kg_buy_price" name="kg_buy_price" placeholder="prix d'achat..."/>
+                </div>
+                <div class="field">
+                    <label>Prix par Kg</label>
+                    <input type="number" formControlName="kg_price" name="kg_price" placeholder="prix du kg..."/>
+                </div>
+            </div>
+
+        </div>
+
+
+      
+
+        <div class="field">
+
+            <div class="two fields">
+                <div class="field">
+                    <label>Description</label>
+                    <input type="text" formControlName="description" name="description" placeholder="description d'element ..."/>
+                </div>
+                <div class="field">
+                    <label>Kg stocké</label>
+                    <input type="number" formControlName="available" name="available" placeholder="Kg en stock..."/>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+
+                    <label>Composition</label>
+                    <div class="ui fluid multiple search selection dropdown" id="composecategory-dropdown">
+                        <input type="hidden" name="country">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Composition</div>
+                        <div class="menu">
+                            <div class="item">Olive</div>
+                            <div class="item">Fromage</div>
+                            <div class="item">Tomate</div>
+                            <div class="item">...</div>
+                        </div>
+                    </div>
+                </div>
+        
+
+        
+
+        <div class="field">
+
+        <div class="ui buttons">
+            <button class="ui button basic blue" (click)="save(true)" [disabled]="elementForm.elementForm.invalid" *ngIf="element == null">enregistrer et nouveau</button>
+            <button class="ui button blue" (click)="save()" [disabled]="elementForm.elementForm.invalid">enregistrer</button>
+        </div>
+        </div>
+
+
+    </form>
+</div>
+
+<div class="ui basic modal on-action-modal">
+    <div class="ui icon header">
+    <div class="ui active big centered inline loader"></div>
+    <h1>Enregistrement en cours</h1>
+    </div>
+  </div>

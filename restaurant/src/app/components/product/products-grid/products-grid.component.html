@@ -1,0 +1,122 @@
+
+    <!---------------------------------- GRID -------------------------------------->
+    <div class="actions">
+
+      <div class="filter-container">
+        <div class="search-field" (keyup)="search_global_products($event)" placeholder="recherche..." contenteditable>
+        </div>
+        <field-filters-product></field-filters-product>
+      </div>
+
+
+      <div class="btns">
+        <a class="ui blue button" [routerLink]="['../form']"
+          [queryParams]="{action:formAction.CREATE, product: null}">Ajouter un produit</a>
+          <button class="ui button basic icon" *ngIf="canExport">
+            Exporter<i class="sign-in alternate icon"></i>
+          </button>
+      </div>
+
+    </div>
+    
+    <div class="ui active big centered inline loader" *ngIf="products.length == 0"></div>
+    <div class="list" *ngIf="products.length > 0">
+      <table class="ui compact small fixed padded striped selectable stackable single line table">
+        <thead>
+          <tr>
+            <th (mouseleave)="unselectColumn('td-'+header.key)" (mouseenter)="selectColumn('td-'+header.key)" class="{{header.key}}" [ngClass]="gridControls.fieldClassAction(header.key)" *ngFor="let header of gridControls.header">
+              <div class="flexy-header">
+                <span>{{header.label}}</span>
+                <div>
+                  <a class="ui circular small blue label empty" (click)="gridControls.setAscField(header.key)"></a>
+                  <a class="ui circular small grey label empty" (click)="gridControls.setDescField(header.key)"></a>
+                  <a class="ui circular small orange label empty" (click)="gridControls.setSelectField(header.key)"></a>
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+          SHOW_IMAGE_ON_HOVER
+          [TEMPLATE_REF]="'product-grid-img-tippy-'+product.id"
+          *ngFor="let product of products | paginate: gridControls.pagination_config"
+          class="center aligned"
+          [ngClass]="{'error': product.total_stock == 0, 'warning': product.total_stock > 0 && product.total_stock <= 8}"
+          (click)="editProduct(product.id)">
+            
+            <td class="td-id" [ngClass]="gridControls.fieldClassAction('id', false)">
+              <i class="attention icon" *ngIf="product.total_stock == 0"></i>
+              #{{product.id}}
+            </td>
+            
+            <td class="td-name" [ngClass]="gridControls.fieldClassAction('name', false)">
+              {{product.name}}
+            </td>
+            
+            <td class="td-productCategorys" [ngClass]="gridControls.fieldClassAction('productCategorys', false)">
+              <a *ngFor="let cat of product.productCategorys"
+              [ngClass]="product.productCategorys.length < 2?'small':'mini'"
+              class="ui label blue circular">
+                {{cat.label}}
+              </a>
+            </td>
+
+            <td class="td-productSizes" [ngClass]="gridControls.fieldClassAction('productSizes', false)">
+              <a *ngFor="let size of product.productSizes"
+              [ngClass]="product.productSizes.length < 3?'small':'mini'"
+              class="ui label circular">
+                {{size.label}}
+              </a>
+            </td>
+
+            <td class="td-type" [ngClass]="gridControls.fieldClassAction('type', false)">{{product.type}}</td>
+
+            <td class="td-actual_price" [ngClass]="gridControls.fieldClassAction('actual_price', false)">
+              {{product.actual_price}} DT
+            </td>
+
+            <td class="td-price" [ngClass]="gridControls.fieldClassAction('price', false)">
+              {{product.price}} DT
+            </td>
+            
+            <td class="td-discount" [ngClass]="gridControls.fieldClassAction('discount', false)">
+              {{product.discount}}%
+            </td>
+            
+            <td class="td-total_stock" [ngClass]="gridControls.fieldClassAction('total_stock', false)">
+              <span *ngIf="product.total_stock > 8" class="stock-label ok-stock">disponible</span>
+              <span *ngIf="product.total_stock > 0 && product.total_stock <= 8" class="stock-label warning-stock">disponible</span>
+
+              <span *ngIf="product.total_stock == 0" class="stock-label error-stock">indisponible</span>
+              
+            </td>
+
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+
+          </tr>
+        </tfoot>
+      </table>
+      <div class="pagination">
+        <pagination-controls (pageChange)="gridControls.actual_grid_page = $event"></pagination-controls>
+    </div>
+    </div>
+   <!--------------- Template to show product image on hover row ---------->
+    <div class="template" *ngFor="let i of products_tips" [id]="'product-grid-img-tippy-'+i.id">
+      <img *ngIf="i.image" src="{{i.image}}" class="ui image rounded small" style="object-fit: cover;height: 7rem;" />
+      <img *ngIf="!i.image" src="assets/defaultimage.png" class="ui image rounded small" style="object-fit: cover;height: 7rem;" />
+     
+      <div class="stars" style="display: flex; justify-content: center;">
+        <ng-container class="star icon" *ngFor="let star of [1,2,3,4,5]">
+          <i class="star yellow icon" *ngIf="star <= i.rating"></i>
+          <i class="star icon" *ngIf="(star > i.rating)" style="color: rgb(217, 217, 224);"></i>
+        </ng-container>
+      </div>
+      <div class="ui divider"></div>
+      <div style="display: flex; flex-direction: column;">
+        <span><b>Vendue: {{i.saled_times}} fois</b></span>
+      </div>
+    </div>

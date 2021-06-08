@@ -1,0 +1,40 @@
+<div class="ui menu my-menu">
+  <!--<a class="item logo-item"><img class="logo" src="assets/logo.png" /></a>-->
+  <a class="item itemnavbar-88" [ngClass]="isCurrent('products')" routerLink="/accueil/products">Produits
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </a>
+  <a class="item itemnavbar-88" [ngClass]="isCurrent('elements')" routerLink="/accueil/elements">Éléments
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </a>
+  <a class="item itemnavbar-88" [ngClass]="isCurrent('construction')" routerLink="/accueil/construction">Construction
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </a>
+  <div class="right menu">
+      <a class="item">
+          <img class="ui avatar image" src="assets/default-user.png">
+          <span class="avatar-username">Nom utilisateur</span>
+      </a>
+      <!--
+      <a class="item">
+        <div class="notification">
+          <a class="ui circular orange label mini pulse-notification">3</a>
+          <i class="bell icon ringing-notification"></i>
+        </div>
+      </a>-->
+      <a class="item sidebar-menu-tg" (click)="toggleSidebar()">
+        <i class="bars icon sidebar-menu-tg"></i>
+      </a>
+  </div>
+</div>

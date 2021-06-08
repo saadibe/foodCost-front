@@ -1,0 +1,19 @@
+    
+
+  <div class="list" *ngIf="!productHasChoosed">
+    <a class="item element" *ngFor="let p of products" (click)="onGotProduct(p)">
+      <span>{{p.name}}</span>
+      <img src="{{p.image}}" *ngIf="p.image"/>
+      <img src="assets/defaultimage.png" *ngIf="!p.image"/>
+    </a>
+  </div>
+
+  <div *ngIf="productHasChoosed" cdkDropList class="list" id="ELEMENTS-FOOD-CONSTRUCTOR-2" #ELEMENTS="cdkDropList" [cdkDropListData]="elements"
+  [cdkDropListConnectedTo]="['CONSTRUCTOR-FOOD']" draggable="true" (cdkDropListDropped)="onDrop($event)">
+  <a class="item element" *ngFor="let i of elements" (cdkDragEnded)="onDrag(false)" (cdkDragEntered)="onDrag(true)"
+    cdkDrag>
+    <span>{{i.name}}</span>
+    <img src="{{i.image}}" *ngIf="i.image"/>
+    <img src="assets/defaultimage.png" *ngIf="!i.image"/>
+  </a>
+</div>

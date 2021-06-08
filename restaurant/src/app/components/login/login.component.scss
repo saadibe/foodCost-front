@@ -1,0 +1,56 @@
+.login-page{
+    background: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+form{
+    width: 21.5rem;
+}
+.intro-field{
+    text-align: center;
+    h1{
+        font-family: "Courgette";
+        text-align: center;
+    }
+    img{
+        width: 7rem;
+        object-fit: fill;
+        filter: drop-shadow(2px 2px 6px black);
+    }
+}
+.login-field,.google-field{
+    text-align: center;
+}
+.login-field{
+    button{
+        width: 50%;
+        //background: linear-gradient(90deg, #4183c4 20%, #ad6ff7e3 100%) !important;
+
+    }
+}
+.ctn-az{
+    font-family: 'Ubuntu';
+    display: flex;
+    .checkbox{
+        flex: 1;
+        cursor: pointer;
+        label{
+            cursor: pointer;
+        }
+    }
+    a{
+        font-weight: 600;
+        cursor: pointer;
+    }
+}
+p{
+    text-align-last: center;
+    font-family: 'Ubuntu';
+    font-size: x-small;
+    font-weight: 600;
+    color: #9da099;
+}

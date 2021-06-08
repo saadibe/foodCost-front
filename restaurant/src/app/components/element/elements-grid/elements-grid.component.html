@@ -1,0 +1,91 @@
+<div class="actions">
+
+  <div class="filter-container">
+    <div class="search-field" placeholder="recherche..." (keyup)="search_global_elements($event)" contenteditable></div>
+    <elements-filter></elements-filter>
+  </div>
+
+  <div class="btns">
+
+    <a class="ui blue button" [routerLink]="['../form']"
+      [queryParams]="{action:formAction.CREATE, element: null}">Ajouter un élément</a>
+
+
+    <button class="ui button basic icon" *ngIf="canExport">
+      Exporter<i class="sign-in alternate icon"></i>
+    </button>
+  </div>
+</div>
+
+<div class="ui active big centered inline loader" *ngIf="elements.length == 0"></div>
+
+<div class="list" *ngIf="elements.length > 0">
+  <table class="ui compact small fixed padded striped selectable stackable single line table">
+    <thead>
+      <tr>
+        <th (mouseleave)="unselectColumn('td-'+header.key)" (mouseenter)="selectColumn('td-'+header.key)"
+          class="{{header.key}}" [ngClass]="gridControls.fieldClassAction(header.key)"
+          *ngFor="let header of gridControls.header">
+          <div class="flexy-header">
+            <span>{{header.label}}</span>
+            <div>
+              <a class="ui circular small blue label empty" (click)="gridControls.setAscField(header.key)"></a>
+              <a class="ui circular small grey label empty" (click)="gridControls.setDescField(header.key)"></a>
+              <a class="ui circular small orange label empty" (click)="gridControls.setSelectField(header.key)"></a>
+            </div>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr 
+        (click)="editElement(element.id)"
+        *ngFor="let element of elements | paginate: gridControls.pagination_config" class="center aligned"
+        [ngClass]="{'error': element.kg_in_stock == 0, 'warning': element.kg_in_stock > 0 && element.kg_in_stock <= 8}">
+
+        <td class="td-id" [ngClass]="gridControls.fieldClassAction('id', false)">
+          <i class="attention icon" *ngIf="element.kg_in_stock == 0"></i>
+          #{{element.id}}
+        </td>
+
+        <td class="td-name" [ngClass]="gridControls.fieldClassAction('name', false)">
+          {{element.name}}
+        </td>
+
+        <td class="td-elementCategorys" [ngClass]="gridControls.fieldClassAction('elementCategorys', false)">
+          <a *ngFor="let cat of element.elementCategorys" [ngClass]="element.elementCategorys.length < 2?'small':'mini'"
+            class="ui label blue circular">
+            {{cat.label}}
+          </a>
+        </td>
+
+        <td class="td-kg_buy_price" [ngClass]="gridControls.fieldClassAction('kg_buy_price', false)">
+          {{element.kg_buy_price}} DT
+        </td>
+
+        <td class="td-kg_price" [ngClass]="gridControls.fieldClassAction('kg_price', false)">
+          {{element.kg_price}} DT
+        </td>
+
+
+        <td class="td-kg_in_stock" [ngClass]="gridControls.fieldClassAction('kg_in_stock', false)">
+          <span *ngIf="element.kg_in_stock > 8" class="stock-label ok-stock">disponible</span>
+          <span *ngIf="element.kg_in_stock > 0 && element.kg_in_stock <= 8"
+            class="stock-label warning-stock">disponible</span>
+
+          <span *ngIf="element.kg_in_stock == 0" class="stock-label error-stock">indisponible</span>
+
+        </td>
+
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+
+      </tr>
+    </tfoot>
+  </table>
+  <div class="pagination">
+    <pagination-controls (pageChange)="gridControls.actual_grid_page = $event"></pagination-controls>
+  </div>
+</div>

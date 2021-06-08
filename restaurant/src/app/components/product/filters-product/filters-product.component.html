@@ -1,0 +1,505 @@
+<!--This filter popup will show on width > 790px -->
+<button class="ui button icon blue circular tiny filters filters-dropdown filter-790 fvz">
+  <i class="ui filter icon"></i>
+</button>
+<div class="ui popup top left transition hidden filter-790">
+  <div class="filter-content">
+    <form class="ui mini form form-popup" novalidate>
+      <div class="field">
+        <div class="three fields flexy-name">
+          <div class="field name-input">
+            <input type="text" placeholder="product code..." />
+          </div>
+
+          <div class="field name-search-mode">
+            
+          </div>
+          <div class="field">
+              <a class="ui button blue circular icon small">
+                  ajout
+              </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="three fields flexy-name">
+          <div class="field name-input">
+            <input type="text" placeholder="product name..." />
+          </div>
+
+          <div class="field name-search-mode">
+            <div class="pretty p-round p-fill">
+              <input type="radio" name="icon_solid" checked />
+              <div class="state p-success">
+                <label>Exact</label>
+              </div>
+            </div>
+            <div class="pretty p-round p-fill">
+              <input type="radio" name="icon_solid" />
+              <div class="state p-success">
+                <label>Contien</label>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <a class="ui button blue circular icon small">
+                  ajout
+              </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="three fields flexy-name">
+          <div class="field name-input">
+            <input type="text" placeholder="type..." />
+          </div>
+
+          <div class="field name-search-mode">
+            <div class="pretty p-round p-fill">
+              <input type="radio" name="icon_solida" checked />
+              <div class="state p-success">
+                <label>Exact</label>
+              </div>
+            </div>
+            <div class="pretty p-round p-fill">
+              <input type="radio" name="icon_solida" />
+              <div class="state p-success">
+                <label>Contien</label>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <a class="ui button blue circular icon small">
+                  ajout
+              </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="field">
+          <div class="four fields" [ngClass]="(isBetween.price)?'flexy-price-4': 'flexy-price-3'">
+              <div class="field">
+                  <input type="number" placeholder="prix..." />
+              </div>
+
+              <div class="field">
+                <select class="ui dropdown compare-dropdown fdropdown-pr-7">
+                    <option value="price:exact">Exact</option>
+                    <option value="price:less">moins</option>
+                    <option value="price:greater">plus</option>
+                    <option value="price:between">entre</option>
+                  </select>
+              </div>
+
+              <div class="field" *ngIf="isBetween.price">
+                <input type="number" placeholder="prix..." />
+              </div>
+              <div class="field">
+                <a class="ui button icon blue circular small">ajout</a>
+
+              </div>
+          </div>
+      </div>
+
+      <div class="field">
+        <div class="four fields" [ngClass]="(isBetween.actual)?'flexy-price-4': 'flexy-price-3'">
+            <div class="field">
+                <input type="number" placeholder="prix actuel..." />
+            </div>
+
+            <div class="field">
+              <select class="ui dropdown compare-dropdown fdropdown-pr-7">
+                  <option value="actual:exact">Exact</option>
+                  <option value="actual:less">moins</option>
+                  <option value="actual:greater">plus</option>
+                  <option value="actual:between">entre</option>
+                </select>
+            </div>
+
+            <div class="field" *ngIf="isBetween.actual">
+              <input type="number" placeholder="prix actuel..." />
+            </div>
+            <div class="field">
+              <a class="ui button icon blue circular small">ajout</a>
+
+            </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="four fields" [ngClass]="(isBetween.discount)?'flexy-price-4': 'flexy-price-3'">
+            <div class="field">
+                <input type="number" placeholder="remise..." />
+            </div>
+
+            <div class="field">
+              <select class="ui dropdown compare-dropdown fdropdown-pr-7">
+                  <option value="discount:exact">Exact</option>
+                  <option value="discount:less">moins</option>
+                  <option value="discount:greater">plus</option>
+                  <option value="discount:between">entre</option>
+                </select>
+            </div>
+
+            <div class="field" *ngIf="isBetween.discount">
+              <input type="number" placeholder="remise..." />
+            </div>
+            <div class="field">
+              <a class="ui button icon blue circular small">ajout</a>
+
+            </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="four fields" [ngClass]="(isBetween.saled)?'flexy-price-4': 'flexy-price-3'">
+            <div class="field">
+                <input type="number" placeholder="vendue..." />
+            </div>
+
+            <div class="field">
+              <select class="ui dropdown compare-dropdown fdropdown-pr-7">
+                  <option value="saled:exact">Exact</option>
+                  <option value="saled:less">moins</option>
+                  <option value="saled:greater">plus</option>
+                  <option value="saled:between">entre</option>
+                </select>
+            </div>
+
+            <div class="field" *ngIf="isBetween.saled">
+              <input type="number" placeholder="vendue..." />
+            </div>
+            <div class="field">
+              <a class="ui button icon blue circular small">ajout</a>
+
+            </div>
+        </div>
+      </div>
+
+      
+      <div class="three fields flexy-stock">
+        <div class="field stock-ctn">
+
+          <div class="ui fluid multiple search selection dropdown drop52">
+            <input type="hidden" name="country">
+            <i class="dropdown icon"></i>
+            <div class="default text">Taille ...</div>
+            <div class="menu">
+              <div class="item">Small</div>
+              <div class="item">Medium</div>
+              <div class="item">Large</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="field"></div>
+        <div class="field">
+            <a class="ui button icon blue circular small">ajout</a>
+        </div>
+      </div>
+      <div class="three fields flexy-category">
+        <div class="field stock-ctn">
+
+          <div class="ui fluid multiple search selection dropdown drop52">
+            <input type="hidden" name="country">
+            <i class="dropdown icon"></i>
+            <div class="default text">Catégorie ...</div>
+            <div class="menu">
+              <div class="item">Salée</div>
+              <div class="item">Boissons</div>
+              <div class="item">Dessert</div>
+            </div>
+          </div>
+        </div>
+        <div class="field"></div>
+        <div class="field">
+            <a class="ui button icon blue circular small">ajout</a>
+        </div>
+      </div>
+      
+      
+      <div class="three fields flexy-stock">
+        <div class="field stock-ctn">
+
+          <div class="ui fluid multiple search selection dropdown drop52">
+            <input type="hidden" name="country">
+            <i class="dropdown icon"></i>
+            <div class="default text">Disponibilité ...</div>
+            <div class="menu">
+              <div class="item">En stock</div>
+              <div class="item">Hors stock</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="field"></div>
+        <div class="field">
+            <a class="ui button icon blue circular small">ajout</a>
+        </div>
+      </div>
+
+
+      
+
+    </form>
+  </div>
+</div>
+
+<!--This filter modal will show on width <= 790px -->
+
+
+<button (click)="showFilterModal()" class="ui button icon blue circular tiny filters filter-789 fvz filters-modal">
+  <i class="ui filter icon"></i>
+</button>
+
+<div class="ui modal" id="filters-product-789-modal">
+  <i class="close icon"></i>
+  <div class="header">
+    <i class="filter icon"></i> Filtres 
+  </div>
+  <div class="content">
+    <form class="ui mini form" novalidate>
+      <div class="field">
+        <div class="three fields flexy-name">
+          <div class="field name-input">
+            <input type="text" placeholder="code.produit.." />
+          </div>
+
+          <div class="field name-search-mode">
+            
+          </div>
+          <div class="field">
+              <a class="ui button blue circular icon small">
+                  ajout
+              </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="three fields flexy-name">
+          <div class="field name-input">
+            <input type="text" placeholder="nom produit..." />
+          </div>
+
+          <div class="field name-search-mode">
+            <div class="pretty p-round p-fill">
+              <input type="radio" name="icon_solid" checked />
+              <div class="state p-success">
+                <label>Exact</label>
+              </div>
+            </div>
+            <div class="pretty p-round p-fill">
+              <input type="radio" name="icon_solid" />
+              <div class="state p-success">
+                <label>Contien</label>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <a class="ui button blue circular icon small">
+                  ajout
+              </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="three fields flexy-name">
+          <div class="field name-input">
+            <input type="text" placeholder="type..." />
+          </div>
+
+          <div class="field name-search-mode">
+            <div class="pretty p-round p-fill">
+              <input type="radio" name="icon_solida" checked />
+              <div class="state p-success">
+                <label>Exact</label>
+              </div>
+            </div>
+            <div class="pretty p-round p-fill">
+              <input type="radio" name="icon_solida" />
+              <div class="state p-success">
+                <label>Contient</label>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <a class="ui button blue circular icon small">
+                  ajout
+              </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="field">
+          <div class="four fields" [ngClass]="(isBetween.price)?'flexy-price-4': 'flexy-price-3'">
+              <div class="field">
+                  <input type="number" placeholder="prix..." />
+              </div>
+
+              <div class="field">
+                <select class="ui dropdown compare-dropdown fdropdown-pr-7">
+                    <option value="price:exact">Exact</option>
+                    <option value="price:less">moins</option>
+                    <option value="price:greater">plus</option>
+                    <option value="price:between">entre</option>
+                  </select>
+              </div>
+
+              <div class="field" *ngIf="isBetween.price">
+                <input type="number" placeholder="prix..." />
+              </div>
+              <div class="field">
+                <a class="ui button icon blue circular small">ajout</a>
+
+              </div>
+          </div>
+      </div>
+
+      <div class="field">
+        <div class="four fields" [ngClass]="(isBetween.actual)?'flexy-price-4': 'flexy-price-3'">
+            <div class="field">
+                <input type="number" placeholder="prix actuel..." />
+            </div>
+
+            <div class="field">
+              <select class="ui dropdown compare-dropdown fdropdown-pr-7">
+                  <option value="actual:exact">Exact</option>
+                  <option value="actual:less">moins</option>
+                  <option value="actual:greater">plus</option>
+                  <option value="actual:between">entre</option>
+                </select>
+            </div>
+
+            <div class="field" *ngIf="isBetween.actual">
+              <input type="number" placeholder="prix actuel..." />
+            </div>
+            <div class="field">
+              <a class="ui button icon blue circular small">ajout</a>
+
+            </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="four fields" [ngClass]="(isBetween.discount)?'flexy-price-4': 'flexy-price-3'">
+            <div class="field">
+                <input type="number" placeholder="remise..." />
+            </div>
+
+            <div class="field">
+              <select class="ui dropdown compare-dropdown fdropdown-pr-7">
+                  <option value="discount:exact">Exact</option>
+                  <option value="discount:less">moins</option>
+                  <option value="discount:greater">plus</option>
+                  <option value="discount:between">entre</option>
+                </select>
+            </div>
+
+            <div class="field" *ngIf="isBetween.discount">
+              <input type="number" placeholder="remise..." />
+            </div>
+            <div class="field">
+              <a class="ui button icon blue circular small">ajout</a>
+
+            </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="four fields" [ngClass]="(isBetween.saled)?'flexy-price-4': 'flexy-price-3'">
+            <div class="field">
+                <input type="number" placeholder="vendue..." />
+            </div>
+
+            <div class="field">
+              <select class="ui dropdown compare-dropdown fdropdown-pr-7">
+                  <option value="saled:exact">Exact</option>
+                  <option value="saled:less">moins</option>
+                  <option value="saled:greater">plus</option>
+                  <option value="saled:between">entre</option>
+                </select>
+            </div>
+
+            <div class="field" *ngIf="isBetween.saled">
+              <input type="number" placeholder="vendue..." />
+            </div>
+            <div class="field">
+              <a class="ui button icon blue circular small">ajout</a>
+
+            </div>
+        </div>
+      </div>
+
+      
+      <div class="two fields flexy-stock-modal">
+        
+            <div class="field">
+              <div class="ui fluid multiple search selection dropdown drop52">
+                <input type="hidden" name="country">
+                <i class="dropdown icon"></i>
+                <div class="default text">Taille ...</div>
+                <div class="menu">
+                  <div class="item">Small</div>
+                  <div class="item">Medium</div>
+                  <div class="item">Large</div>
+                </div>
+              </div>
+            </div>
+
+        <div class="field">
+            <a class="ui button icon blue circular small">ajout</a>
+        </div>
+      </div>
+
+
+      <div class="two fields flexy-stock-modal">
+        <div class="field">
+          <div class="field">
+            <div class="ui fluid multiple search selection dropdown drop52">
+              <input type="hidden" name="country">
+              <i class="dropdown icon"></i>
+              <div class="default text">Catégorie ...</div>
+              <div class="menu">
+                <div class="item">Salée</div>
+                <div class="item">Boissons</div>
+                <div class="item">Dessert</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="field">
+            <a class="ui button icon blue circular small">ajout</a>
+        </div>
+      </div>
+
+
+
+      <div class="two fields flexy-stock-modal">
+        
+          <div class="field">
+            <div class="field">
+              <div class="ui fluid multiple search selection dropdown drop52">
+                <input type="hidden" name="country">
+                <i class="dropdown icon"></i>
+                <div class="default text">Disponibilité ...</div>
+                <div class="menu">
+                  <div class="item">en stock</div>
+                  <div class="item">hors stock</div>
+        
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        <div class="field">
+            <a class="ui button icon blue circular small">ajout</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

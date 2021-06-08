@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Poppins:wght@600&family=Ubuntu:wght@300&display=swap');
+
+html,body{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background: whitesmoke;
+}
+.courgette{
+    font-family: 'Courgette';
+}
+.ubuntu{
+    font-family: 'Ubuntu';
+}
+
+.my-menu{
+    border-radius: 0px !important;
+    a::before{ display: none;}
+}
+.my-inverted{
+    background-color: #1f2433/*#0e171f*/ /*#060f24*/ !important;
+    .item{
+        color: white !important;
+    }
+}
+
+.input-v1{
+    border-radius: 25px !important;
+    border: none !important;
+    background: #dee0db !important;
+    &::placeholder{ color: rgb(116, 113, 113) !important;}
+    font-weight: 600;
+    font-family: 'Ubuntu';
+    box-shadow: 0px 0px 1px 2px #d7cece !important;
+}
+.pusher{
+    height: 100%;
+}
