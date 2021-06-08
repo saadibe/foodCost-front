@@ -126,3 +126,19 @@
     <h1>Enregistrement en cours</h1>
     </div>
   </div>
+
+  <div class="ui basic modal on-enter-modal-password-e">
+    <div class="ui icon header">
+    </div>
+    <div class="content">
+      <div class="cred-pwd">
+          <img class="ui image tiny circular" src="assets/default-user.png" />
+          <span>Nom d'utilisateur</span>
+          <div class="ui input left icon">
+            <input type="password" placeholder="password..." [ngModelOptions]="{standalone: true}" [(ngModel)]="PASSWORD_PASS"/>
+            <i class="key icon"></i>
+          </div>
+          <button class="ui blue button" (click)="credentialVerif()">continue</button>
+      </div>
+    </div>
+  </div>

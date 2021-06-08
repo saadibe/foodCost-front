@@ -298,3 +298,12 @@ thead>tr>th{
     background: #e8e8e9;
     color: rgb(34, 33, 33) ;
 }
+.loader{
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    &::after{
+        border-color: #1f2433 transparent transparent !important;
+    }
+}

@@ -9,7 +9,7 @@ export class ActivateConsoleGuard implements CanActivate {
   constructor(private router: Router){}
   canActivate(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): Promise<boolean>{
     return new Promise<boolean>(async resolve=>{
-      let t = sessionStorage.getItem('valid_admin')
+      let t = localStorage.getItem('valid_admin')
    
       if( !t || t == "false"){
         resolve(false)

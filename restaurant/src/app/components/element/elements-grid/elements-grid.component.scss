@@ -293,3 +293,12 @@ thead>tr>th{
     display: flex; align-items: center;
     width: 30%;
 }
+.loader{
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    &::after{
+        border-color: #1f2433 transparent transparent !important;
+    }
+}

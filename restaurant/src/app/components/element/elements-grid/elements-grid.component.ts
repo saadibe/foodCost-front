@@ -84,4 +84,5 @@ export class ElementsGridComponent implements OnInit, AfterViewInit {
       t[c].classList.remove('hovered-td-header')
     }
   }
+
 }

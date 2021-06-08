@@ -11,7 +11,7 @@ export class ProductForm extends IDT{
         super();
         this.formBuilder = new FormBuilder();
         this.productForm = this.formBuilder.group({
-            name: [this.getFromProduct('name'), Validators.required],
+            name: [this.getFromProduct('name'), Validators.required, ],
             type: [this.getFromProduct('type'), Validators.required],
             price: [this.getFromProduct('price'), Validators.required],
             discount:[this.getFromProduct('discount'), Validators.required],

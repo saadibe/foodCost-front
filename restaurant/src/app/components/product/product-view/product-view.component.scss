@@ -17,6 +17,9 @@ input[type=text],input[type=number]{
 input[type=file]{
     display: none;
 }
+.download{
+    cursor: pointer;
+}
 .dropdown{
     box-shadow: 0px 0.5px 5px #eeeaeaeb !important;
     background: #e0e1e2 !important;
@@ -126,5 +129,18 @@ input[type=file]{
         float: right;
         cursor: pointer;
         font-size: smaller;
+    }
+}
+.cred-pwd{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    span{
+        font-weight: 600;
+        margin-bottom: 2%;    
+    }
+    .input{
+        margin-bottom: 1%;
     }
 }

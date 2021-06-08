@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { CategorySizeService } from 'src/app/services/category-size/category-size.service';
-declare var $: any;
+
 @Component({
   selector: 'app-accueil',
   templateUrl: './accueil.component.html',

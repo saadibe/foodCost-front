@@ -17,6 +17,12 @@ declare var $: any;
   styleUrls: ['./product-view.component.scss']
 })
 export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChecked ,OnDestroy {
+ 
+  //A dirty way to make sure that the original user is making change
+  //this field will be replaced with real credentials in next version
+  //PWD = admin
+  PASSWORD_PASS: string;
+
 
   formAction = FormAction
   product: ProductModel = null;
@@ -34,6 +40,7 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
     //get action mode and item from url
     this.acrouter.queryParams.subscribe(params=>{
       this.action = params['action']
+
       if( params['product'] != null )
       this.product = JSON.parse( atob(params['product']) )
       this.productForm = new ProductForm( this.product )
@@ -50,7 +57,10 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
   
   ngOnDestroy(): void {
     //remove modal
+    $(".on-action-modal").modal('hide')
+    $(".on-enter-modal-password").modal('hide')
     $(".on-action-modal").remove()
+    $(".on-enter-modal-password").remove()
   }
 
   ngAfterViewInit(): void {
@@ -69,6 +79,8 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
     this.setSelectedCategorysSizes()
     
     $(".on-action-modal").modal({closable:false})
+    $(".on-enter-modal-password").modal({closable: false})
+    this.openVerifCredentials()
 
   }
 
@@ -157,5 +169,18 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
       (prd.price - ((prd.price * prd.discount)/100)).toFixed(2)
     )
     return prd;
+  }
+
+  credentialVerif(){
+    let t = (this.PASSWORD_PASS == "admin")
+    if( t ){
+      $(".on-enter-modal-password").modal('hide')
+      localStorage.setItem("action-user-verif", "1")
+    }
+  }
+  openVerifCredentials(){
+    let t = localStorage.getItem("action-user-verif")
+    if( !t )
+    $(".on-enter-modal-password").modal('show')
   }
 }

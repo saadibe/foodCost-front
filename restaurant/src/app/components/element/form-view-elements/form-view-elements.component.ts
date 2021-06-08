@@ -7,6 +7,7 @@ import { ElementsService } from 'src/app/services/elements/elements.service';
 import { ElementForm } from './element.form';
 import { ChangeDetectorRef } from '@angular/core';
 
+
 declare var $: any;
 @Component({
   selector: 'form-view-elements',
@@ -14,6 +15,11 @@ declare var $: any;
   styleUrls: ['./form-view-elements.component.scss']
 })
 export class FormViewElementsComponent implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
+  
+  //A dirty way to make sure that the original user is making change
+  //this field will be replaced with real credentials in next version
+  //PWD = admin
+  PASSWORD_PASS: string;
 
   element: ElementModel = null;
   action: string;
@@ -37,6 +43,7 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
     //get action form mode and element to update if exist
     this.acrouter.queryParams.subscribe(params=>{
       this.action = params['action']
+
       if( params['element'] != null )
       this.element = JSON.parse( atob(params['element']) )
       this.elementForm = new ElementForm( this.element )
@@ -49,7 +56,10 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
   }
 
   ngOnDestroy(): void {
+    $(".on-enter-modal-password-e").modal('hide')
+    $(".on-action-modal").modal('hide')
     $(".on-action-modal").remove()
+    $(".on-enter-modal-password-e").remove()
   }
 
   ngAfterViewInit(): void {
@@ -69,6 +79,8 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
     $("#composecategory-dropdown").dropdown('set selected', this.element?.components)
 
     $(".on-action-modal").modal({closable:false})
+    $(".on-enter-modal-password-e").modal({closable: false})
+    this.openVerifCredentials()
 
   }
 
@@ -142,4 +154,16 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
     return t
   }
 
+  credentialVerif(){
+    let t = (this.PASSWORD_PASS == "admin")
+    if( t ){
+      $(".on-enter-modal-password-e").modal('hide')
+      localStorage.setItem("action-user-verif", "1")
+    }
+  }
+  openVerifCredentials(){
+    let t = localStorage.getItem("action-user-verif")
+    if( !t )
+    $(".on-enter-modal-password-e").modal('show')
+  }
 }
