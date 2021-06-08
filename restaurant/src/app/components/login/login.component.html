@@ -26,11 +26,13 @@
                 <a>mot de passe oublié ?</a>
             </div>
         </div>
-        <div class="ui negative message mini" *ngIf="error_login">
+        
+        <div class="ui negative message mini" *ngIf="error_login" (click)="hideErrorLogin()">
             <i class="close icon"></i>
             <div class="header" style="text-align: center;">Vérifiez votre paramètres
             </div>
         </div>
+
         <div class="ui divider"></div>
         <div class="field">
             <p>

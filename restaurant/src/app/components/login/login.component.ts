@@ -6,23 +6,17 @@ declare var $: any;
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit {
 
   error_login = false
   identifiant = ""
   password = ""
 
   constructor(private router: Router) { }
-  ngAfterViewInit(): void {
 
-    //error login message jquery mode
-    $('.message .close').on('click', function() {
-      $(this).closest('.message').transition('fade');
-    });
-
-
+  hideErrorLogin(){
+    this.error_login = false
   }
-
   ngOnInit(): void {
     //remove permission label
     sessionStorage.removeItem('valid_admin')
