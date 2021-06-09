@@ -3,8 +3,7 @@
   <div class="list" *ngIf="!productHasChoosed">
     <a class="item element" *ngFor="let p of products" (click)="onGotProduct(p)">
       <span>{{p.name}}</span>
-      <img src="{{p.image}}" *ngIf="p.image"/>
-      <img src="assets/defaultimage.png" *ngIf="!p.image"/>
+      <img src="{{p?.image|defaultProductImage}}"/>
     </a>
   </div>
 
@@ -13,7 +12,6 @@
   <a class="item element" *ngFor="let i of elements" (cdkDragEnded)="onDrag(false)" (cdkDragEntered)="onDrag(true)"
     cdkDrag>
     <span>{{i.name}}</span>
-    <img src="{{i.image}}" *ngIf="i.image"/>
-    <img src="assets/defaultimage.png" *ngIf="!i.image"/>
+    <img src="{{i?.image|defaultProductImage}}"/>
   </a>
 </div>

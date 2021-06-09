@@ -14,16 +14,16 @@ export class ElementForm extends IDT{
             name: [this.getFromElement('name'), Validators.required],
             kg_buy_price: [this.getFromElement('kg_buy_price'), Validators.required],
             kg_price:[this.getFromElement('kg_price'), Validators.required],
-            category:[this.getFromElement('elementCategorys'), Validators.required],
+            category:[this.getFromElement('elementCategorys', null), Validators.required],
             components:[this.getFromElement('components')],
             available:[this.getFromElement('kg_in_stock'), Validators.required],
             description:[this.getFromElement('description')],
-            image: []
+            image: [this.getFromElement('image', null)]
         })
     }
 
-    getFromElement(key){
-        if( this.element == null )return ""
+    getFromElement(key, r=""){
+        if( this.element == null )return r
         else return this.element[key]
     }
     getValue(key){

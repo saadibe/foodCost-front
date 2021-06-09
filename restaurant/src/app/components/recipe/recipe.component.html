@@ -1,0 +1,58 @@
+<div class="view">
+    <h3> 
+        <a class="ui empty circular blue label"></a>
+        Reçette
+    </h3>
+
+    <h1 *ngIf="recipe_elements.length == 0" class="welc">Cliquez pour ajouter un composant</h1>
+    <div class="flexy">
+        <div class="f-form">
+            <div class="scroller" #SCROLLER>
+            <form class="ui form">
+
+                <div class="field" *ngFor="let i of recipe_elements">
+                    <div class="two fields ffl">
+
+                        <div class="field">
+                            <label>Élément</label>
+                            <div class="ui fluid selection dropdown recipe-dropdown">
+                                <input type="hidden" name="user">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">élément</div>
+                                <div class="menu">
+                                <div *ngFor="let e of elementsSource" class="item" [attr.data-value]="e.id+':'+i.id">
+                                    <img class="ui mini avatar image" src="{{i.element?.image | defaultProductImage}}">
+                                    {{e.name}}
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Qt. gramme</label>
+                            <div class="exts">
+                                <input placeholder="1 gramme" type="number" (keydown)="validate($event)" (keyup)="setGramme($event, i.id)"/>
+                                    <i class="trash alternate outline red icon" (click)="removeElement(i.id)"></i>
+        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui divider"></div>
+                </div>
+            </form>
+        </div>
+        </div>
+
+        <div class="acts">
+            <button class="ui button orange icon circular add-new" (click)="addNew()"><i class="plus icon"></i></button>
+            <div class="">
+                <button class="ui button" (click)="annuler()">annuler</button>
+                <button class="ui button blue go-back" (click)="closeRecipe()">retour</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>

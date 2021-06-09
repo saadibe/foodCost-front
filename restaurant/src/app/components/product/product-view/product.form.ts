@@ -15,11 +15,11 @@ export class ProductForm extends IDT{
             type: [this.getFromProduct('type'), Validators.required],
             price: [this.getFromProduct('price'), Validators.required],
             discount:[this.getFromProduct('discount'), Validators.required],
-            category:[this.getFromProduct('category', []), Validators.required],
-            size:[this.getFromProduct('size'), Validators.required],
+            category:[this.getFromProduct('category', null), Validators.required],
+            size:[this.getFromProduct('size', null), Validators.required],
             stock:[this.getFromProduct('total_stock'), Validators.required],
             description:[this.getFromProduct('description')],
-            image: []
+            image: [this.getFromProduct('image', null)]
         })
 
     }

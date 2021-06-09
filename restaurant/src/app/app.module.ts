@@ -26,6 +26,8 @@ import { ProductsGridComponent } from './components/product/products-grid/produc
 import { ElementsGridComponent } from './components/element/elements-grid/elements-grid.component';
 import { FormActivatorGuard } from './guards/pe-form-activator/form-activator.guard';
 import { HttpClientModule } from '@angular/common/http';
+import { DefaultProductImagePipe } from './pipes/defaultProductImage/default-product-image.pipe';
+import { RecipeComponent } from './components/recipe/recipe.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { HttpClientModule } from '@angular/common/http';
     FormViewElementsComponent,
     TippydDirective,
     ProductsGridComponent,
-    ElementsGridComponent
+    ElementsGridComponent,
+    DefaultProductImagePipe,
+    RecipeComponent
   ],
   imports: [
     BrowserModule,

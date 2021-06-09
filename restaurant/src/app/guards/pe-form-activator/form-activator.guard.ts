@@ -10,7 +10,6 @@ export class FormActivatorGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean>{
     return new Promise( resolve=>{
-      console.log( this.router.url )
       if( this.router.url != "/" ){
         resolve( true )
       }else{

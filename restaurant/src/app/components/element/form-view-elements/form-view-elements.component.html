@@ -19,14 +19,18 @@
       </div>
 </div>
 
+<a *ngIf="!make_recipe" (click)="make_recipe = true" class="recette-btn">
+    Ajouter une reçette
+    <i class="question circle outline icon"></i>
+</a>
+
 <div class="view">
     <input type="file" (change)="onFileChanged($event)" id="image-file-upload-1">
 
-    <form autocomplete="off" class="ui form"  [formGroup]="elementForm.elementForm" novalidate>
+    <form *ngIf="!make_recipe" autocomplete="off" class="ui form"  [formGroup]="elementForm.elementForm" novalidate>
         <div class="field image-field">
             <div class="ctn" (click)="showImageFileUpload()">
-                <img src="assets/defaultimage.png" id="current-image-element" class="ui image small circular" *ngIf="element == null || !element?.image"/>
-                <img src="{{element.image}}" id="current-image-element" class="ui image small circular" *ngIf="element != null && element.image" />
+                <img src="{{elementForm.getValue('image')|defaultProductImage}}" id="current-image-element" class="ui image small circular"/>
                 <i class="download icon"></i>
             </div>
         </div>
@@ -40,7 +44,10 @@
                 <div class="field">
                     <label class="compose-field-label">
                         <span>catégorie</span>
-                        <a>Crée une nouvelle catégorie</a>
+                        <a>
+                            Crée une nouvelle catégorie
+                            <i class="question circle outline icon"></i>
+                        </a>
                       </label>
 
                     <div class="ui small fluid multiple search selection dropdown" id="categoryelement-product-dropdown">
@@ -118,6 +125,10 @@
 
 
     </form>
+
+    <make-recipe *ngIf="make_recipe" (close)="closeRecipePart()"></make-recipe>
+
+    
 </div>
 
 <div class="ui basic modal on-action-modal">

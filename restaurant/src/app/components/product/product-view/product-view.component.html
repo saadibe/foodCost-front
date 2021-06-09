@@ -16,38 +16,48 @@
     <div class="active section">{{ (action == formAction.CREATE)?'Création':'Modification' }}</div>
   </div>
 </div>
+
+<a *ngIf="!make_recipe" (click)="make_recipe = true" class="recette-btn">
+  Ajouter une reçette
+  <i class="question circle outline icon"></i>
+</a>
+
+<input type="file" (change)="onFileChanged($event)" id="image-file-upload">
+
 <div class="view">
 
-  <input type="file" (change)="onFileChanged($event)" id="image-file-upload">
-
-  <form autocomplete="off" class="ui form" [formGroup]="productForm.productForm" novalidate>
+  <form *ngIf="!make_recipe" autocomplete="off" class="ui form" [formGroup]="productForm.productForm" novalidate>
     <div class="field image-field">
       <div class="ctn" (click)="showImageFileUpload()">
-        <img src="assets/defaultimage.png" id="current-image-product" class="ui image small circular" *ngIf="product == null || !product?.image" />
-        <img src="{{product.image}}" id="current-image-product" class="ui image small circular" *ngIf="product != null && product.image" />
         
+        <img src="{{productForm.getValue('image')|defaultProductImage}}" id="current-image-product" class="ui image small circular"/>
+
         <i class="download icon"></i>
       </div>
     </div>
-    <div class="field">
 
+    <div class="field">
       <div class="two fields">
         <div class="field">
           <label>nom du produit</label>
           <input type="text" formControlName="name" id="product_name_1" name="name" placeholder="nom du produit..." />
         </div>
         <div class="field">
-          
+
           <label class="compose-field-label">
             <span>catégorie</span>
-            <a>Crée une nouvelle catégorie</a>
+            <a>
+              Crée une nouvelle catégorie
+              <i class="question circle outline icon"></i>
+            </a>
           </label>
           <div class="ui fluid multiple search selection small dropdown" id="category-product-dropdown">
             <input type="hidden" name="country">
             <i class="dropdown icon"></i>
             <div class="default text">Catégoris</div>
             <div class="menu">
-              <div #CAT_SIZE *ngFor="let cat of categorysSizes.categorys" class="item" [attr.data-value]="cat.id">{{cat.label}}</div>
+              <div *ngFor="let cat of categorysSizes?.categorys" class="item" [attr.data-value]="cat.id">
+                {{cat.label}}</div>
             </div>
           </div>
         </div>
@@ -55,29 +65,33 @@
 
     </div>
 
-
     <div class="field">
-
       <div class="two fields">
         <div class="field">
           <label>type</label>
           <input type="text" formControlName="type" name="type" placeholder="type du produit..." />
         </div>
         <div class="field">
-          <label>Taille</label>
+          <label class="compose-field-label">
+            <span>Taille</span>
+            <a>
+              Crée une nouvelle taille
+              <i class="question circle outline icon"></i>
+            </a>
+          </label>
           <div class="ui fluid multiple search selection small dropdown" id="size-product-dropdown">
             <input type="hidden" name="country">
             <i class="dropdown icon"></i>
             <div class="default text">Taille</div>
             <div class="menu">
-              <div #CAT_SIZE *ngFor="let size of categorysSizes.sizes" class="item" [attr.data-value]="size.id">{{size.label}}</div>
+              <div #CAT_SIZE *ngFor="let size of categorysSizes?.sizes" class="item" [attr.data-value]="size.id">
+                {{size.label}}</div>
             </div>
           </div>
         </div>
       </div>
 
     </div>
-
 
     <div class="field">
 
@@ -94,7 +108,6 @@
       </div>
 
     </div>
-
 
     <div class="field">
 
@@ -136,16 +149,19 @@
         <button class="ui button blue" (click)="save()"
           [disabled]="productForm.productForm.invalid">enregistrer</button>
       </div>
+
     </div>
-
-
   </form>
+
+  <make-recipe *ngIf="make_recipe" (close)="closeRecipePart()"></make-recipe>
+
 </div>
+
 
 <div class="ui basic modal on-action-modal">
   <div class="ui icon header">
-  <div class="ui active big centered inline loader"></div>
-  <h1>Enregistrement en cours</h1>
+    <div class="ui active big centered inline loader"></div>
+    <h1>Enregistrement en cours</h1>
   </div>
 </div>
 
@@ -154,13 +170,14 @@
   </div>
   <div class="content">
     <div class="cred-pwd">
-        <img class="ui image tiny circular" src="assets/default-user.png" />
-        <span>Nom d'utilisateur</span>
-        <div class="ui input left icon">
-          <input type="password" placeholder="password..." [ngModelOptions]="{standalone: true}" [(ngModel)]="PASSWORD_PASS"/>
-          <i class="key icon"></i>
-        </div>
-        <button class="ui blue button" (click)="credentialVerif()">continue</button>
+      <img class="ui image tiny circular" src="assets/default-user.png" />
+      <span>Nom d'utilisateur</span>
+      <div class="ui input left icon">
+        <input type="password" placeholder="password..." [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="PASSWORD_PASS" />
+        <i class="key icon"></i>
+      </div>
+      <button class="ui blue button" (click)="credentialVerif()">continue</button>
     </div>
   </div>
 </div>
