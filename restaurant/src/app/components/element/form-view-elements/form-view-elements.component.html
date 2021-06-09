@@ -8,7 +8,7 @@
             {{ (element == null)? '' : "#"+element.id}}
         </span>
 
-        <i class="trash alternate icon red remove-product" (click)="remove()" *ngIf="element != null"></i>
+        <i class="trash alternate icon red remove-product" (click)="remove()" *ngIf="element != null && !make_recipe"></i>
     </h1>
     <div class="ui breadcrumb">
         <a class="section">Accueil</a>
@@ -20,7 +20,7 @@
 </div>
 
 <a *ngIf="!make_recipe" (click)="make_recipe = true" class="recette-btn">
-    Ajouter une reçette
+    {{ (action == formAction.CREATE)?'Ajouter une reçette':'Modifier la reçette' }}
     <i class="question circle outline icon"></i>
 </a>
 
