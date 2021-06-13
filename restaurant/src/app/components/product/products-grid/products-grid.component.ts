@@ -19,6 +19,7 @@ export class ProductsGridComponent implements OnInit, AfterViewInit {
   canExport = false
   products = []
   products_tips = []
+  products_loaded = false
 
   constructor(private router: Router, private acrouter: ActivatedRoute, private productsService: ProductsService) { 
     //make the grid controls with associated headers
@@ -28,7 +29,8 @@ export class ProductsGridComponent implements OnInit, AfterViewInit {
     this.productsService.fetchProducts().subscribe(products => {
       this.products = products
       this.products_tips = products
-
+      this.products_loaded = true
+      console.log( products )
       //init object filter
       this.objectFilter.data = [...products].map( e=> {
         e['ts'] = (e.total_stock == 0)?'indisponible':'disponible'

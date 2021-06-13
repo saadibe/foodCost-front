@@ -17,9 +17,9 @@ export class ProductForm extends IDT{
             discount:[this.getFromProduct('discount'), Validators.required],
             category:[this.getFromProduct('category', null), Validators.required],
             size:[this.getFromProduct('size', null), Validators.required],
-            stock:[this.getFromProduct('total_stock'), Validators.required],
             description:[this.getFromProduct('description')],
-            image: [this.getFromProduct('image', null)]
+            image: [this.getFromProduct('image', null)],
+            recipe:[this.getFromProduct('recipe', [])]
         })
 
     }

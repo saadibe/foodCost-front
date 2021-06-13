@@ -17,7 +17,8 @@
   </div>
 </div>
 
-<h1 class="ui active huge centered blue inline loader" *ngIf="elements.length == 0"></h1>
+<h1 class="ui active huge centered blue inline loader" *ngIf="elements.length == 0 && !elements_loaded"></h1>
+<h2 class="pr-404" *ngIf="elements_loaded && elements.length == 0" >Aucun élément trouvé</h2>
 <div class="list" *ngIf="elements.length > 0">
   <table class="ui compact small fixed padded striped selectable stackable single line table">
     <thead>

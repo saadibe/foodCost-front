@@ -1,4 +1,11 @@
 import { Category, Size } from "./category-sizes.model";
+import { RecipeIngredient } from "./elements.model";
+
+export class ProductRecipe{
+   public id: number;
+   public grammes: number;
+   public ingredient: RecipeIngredient;
+}
 
 export class ProductModel{
    
@@ -16,4 +23,5 @@ export class ProductModel{
    public popularity: number = 0;
    public rating: number = 0;
    public saled_times: number = 0;
+   public recipe = new Array<ProductRecipe>();
 }

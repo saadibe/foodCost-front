@@ -18,6 +18,7 @@ export class ElementsGridComponent implements OnInit, AfterViewInit {
   canExport = false
   elements = []
   gridControls: GridActionControl;
+  elements_loaded = false
 
   constructor(private router: Router,
     private acrouter: ActivatedRoute,
@@ -30,6 +31,7 @@ export class ElementsGridComponent implements OnInit, AfterViewInit {
     this.elementsService.fetchElements().subscribe(res=>{
       this.elements = res
       this.objectFilter.data = [...res]
+      this.elements_loaded = true
     })
 
   }

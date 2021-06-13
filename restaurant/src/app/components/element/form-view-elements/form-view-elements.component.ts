@@ -188,18 +188,21 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
 
     //any change in category dropdown will be setted in the form
     $("#categoryelement-product-dropdown").dropdown({
-      onChange: (e)=>this.elementForm.elementForm.patchValue({category: e.split(",")})
+      onChange: (e)=>{
+        let t  = ( e == "" )?[]: e.split(",")
+        this.elementForm.elementForm.patchValue({category: t })
+      }
     })
     
     //get categorys from element
     let categorys = this.element?.elementCategorys.map(e=>e.id.toString())
 
     //in toggle mode to recipe, category will lost values, it will be resetted by the form
-    let cat2 = this.elementForm.getValue('category')?.map(e=>e.toString())
+    let cat2 = this.elementForm.getValue('category')?.map(e=> e.toString() )
 
     //it can be the form is null, so look from element, otherwise they will be any category
-    cat2 = (cat2)?cat2:categorys
-
+    cat2 = (cat2 && cat2.length>0)?cat2:categorys
+    
     //set the values
     $("#categoryelement-product-dropdown").dropdown('set selected', cat2)
   }

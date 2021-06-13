@@ -100,3 +100,10 @@ input[type=text],input[type=number],.dropdown{
         color: #b0b0b1;
     }
 }
+.e-img{
+    width: 1.6rem !important;
+    height: 1.6rem !important;
+    border-radius: 100px;
+    object-fit: fill !important;
+    transform: translateY(4px);
+}

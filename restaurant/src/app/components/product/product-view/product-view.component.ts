@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { ProductForm } from './product.form';
 import { FormAction } from 'src/app/libs/ViewModes.enum';
-import { ProductModel } from 'src/app/models/product.model';
+import { ProductModel, ProductRecipe } from 'src/app/models/product.model';
 import { Category, CategorySize, Size } from 'src/app/models/category-sizes.model';
 import { CategorySizeService } from 'src/app/services/category-size/category-size.service';
 import { ChangeDetectorRef } from '@angular/core';
@@ -145,12 +145,18 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
 
     //every change in the categorys dropdown will setted in the form
     $("#category-product-dropdown").dropdown({
-      onChange: (e)=>this.productForm.productForm.patchValue({category: e.split(",").map(e=>parseInt(e) )})
+      onChange: (e)=>{
+        let t  = ( e == "" )?[]: e.split(",")
+        this.productForm.productForm.patchValue({category: t })
+      }
     })
     
     //every change in the sizes dropdown will setted in the form
     $("#size-product-dropdown").dropdown({
-      onChange: (e)=>this.productForm.productForm.patchValue({size: e.split(",").map(e=>parseInt(e)) })
+      onChange: (e)=>{
+        let t  = ( e == "" )?[]: e.split(",")
+        this.productForm.productForm.patchValue({size: t })
+      }
     })
 
     //opening recipe part, can make product form losing values
@@ -200,12 +206,29 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
     prd.productSizes = this.productForm.getValue('size')
     .map(e=>this.categorysSizes.sizes.filter(ct=> ct.id == e)[0])
 
-    prd.total_stock = this.productForm.getValue('stock')
     prd.image = this.productForm.getValue('image')
     prd.actual_price = parseFloat( 
       (prd.price - ((prd.price * prd.discount)/100)).toFixed(2)
     )
+    
+    prd.recipe = this.productForm.getValue('recipe')
+    console.log( prd )
     return prd;
+  }
+
+  makeRecipe(event){
+    let t = []
+
+    event.forEach( e=>{
+      console.log( e )
+      let item = new ProductRecipe()
+      item.grammes = parseFloat( e.grammes )
+      item.ingredient = e.ingredient
+      t.push( item )
+    })
+
+    console.log( t )
+    this.productForm.productForm.patchValue({recipe: t })
   }
 
   credentialVerif(){

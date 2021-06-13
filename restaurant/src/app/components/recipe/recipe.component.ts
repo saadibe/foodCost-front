@@ -1,33 +1,62 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ElementModel } from 'src/app/models/elements.model';
-import { RecipeElement } from './recipe.element';
+import { ElementsService } from 'src/app/services/elements/elements.service';
+import { Ingredient, RecipeElement } from './recipe.element';
 declare var $: any;
 @Component({
   selector: 'make-recipe',
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.scss']
 })
-export class RecipeComponent implements OnInit {
+export class RecipeComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('SCROLLER') SCROLLER: ElementRef;
   @Output() close = new EventEmitter()
-  elementsSource = [
-    {id: 1, name: 'e1', image: ''},
-    {id: 2, name: 'e2', image: ''},
-    {id: 3, name: 'e3', image: ''},
-    {id: 4, name: 'e4', image: ''},
-    {id: 5, name: 'e5', image: ''},
-  ]
-  recipe_elements: Array<RecipeElement> = [];
+  @Output() onRecipe = new EventEmitter();
+  @Input() old_recipe: Array<RecipeElement>;
+
+  @Input() recipe_elements: Array<RecipeElement> = [];
+
+  elementsSource = []
 
   element_count = 0
 
-  constructor() { }
+  constructor(public elementService: ElementsService) { 
+    this.elementService.fetchElements().subscribe(elements=> this.elementsSource = elements )
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.recipe_elements = this.recipe_elements.sort( (a,b)=>a.id - b.id)
+    this.recipe_elements.map( e=>{
+      e.id = this.element_count++
+      return e
+    })
+  }
+  
+  ngAfterViewInit(): void {
+    this.onChangeDropdown()
+    $(".recipe-dropdown").each( function(i){
+      let t = $(this).attr('in')
+      console.log( t )
+      setTimeout( ()=>{$(this).dropdown('set selected', t)}, 100)
+    })
+
+    for(let cmp = 0; cmp < this.recipe_elements.length ;cmp++){
+      let t = this.element_count
+      let t1 = this.recipe_elements[cmp]
+      this.element_count = (t1.id > t)?t1.id:t
+    }
+    this.element_count++
+    this.SCROLLER.nativeElement.scrollTop = this.SCROLLER.nativeElement.scrollHeight;
+
+  }
 
   ngOnInit(): void {
   }
 
   closeRecipe(){
+    let final_recipe = this.recipe_elements.filter(e=>e.grammes != 0)
+    console.log( final_recipe )
+    this.onRecipe.emit( final_recipe )
     this.close.emit(false)
   }
 
@@ -38,9 +67,10 @@ export class RecipeComponent implements OnInit {
         let t = val.split(":").map(e=>parseInt(e))
         let element = this.elementsSource.filter(e=> e.id == t[0])[0]
         this.recipe_elements.map(e=> {
-          e.element = (e.id == t[1])?element: e.element
+          e.ingredient = (e.id == t[1])?{id: element.id, name: element.name}: e.ingredient
           return e
         })
+        console.log( this.recipe_elements )
       }
     })
   }
@@ -49,13 +79,13 @@ export class RecipeComponent implements OnInit {
     this.element_count++
     this.recipe_elements.push( new RecipeElement(this.element_count) )
     this.SCROLLER.nativeElement.scrollTop = this.SCROLLER.nativeElement.scrollHeight;
-    setTimeout( ()=>{ this.onChangeDropdown() }, 50 ) 
+    setTimeout( ()=>{ this.onChangeDropdown() }, 50 )
   }
 
   setGramme(event, id){
     this.recipe_elements.map(e=>{
       if( e.id == id){
-        e.gramme = event.target.value
+        e.grammes = event.target.value
       }
     })
   }

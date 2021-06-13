@@ -1,4 +1,8 @@
 import { Category } from './category-sizes.model';
+export class RecipeIngredient{
+    public id: number;
+    public name: string;
+}
 
 export class ElementModel{
 

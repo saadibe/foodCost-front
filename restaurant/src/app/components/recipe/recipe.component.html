@@ -4,7 +4,7 @@
         Reçette
     </h3>
 
-    <h1 *ngIf="recipe_elements.length == 0" class="welc">Cliquez pour ajouter des composants</h1>
+    <h1 *ngIf="recipe_elements == null || recipe_elements.length == 0" class="welc">Cliquez pour ajouter des composants</h1>
     <div class="flexy">
         <div class="f-form">
             <div class="scroller" #SCROLLER>
@@ -15,13 +15,13 @@
 
                         <div class="field">
                             <label>Élément</label>
-                            <div class="ui fluid selection dropdown recipe-dropdown">
+                            <div class="ui fluid selection dropdown recipe-dropdown" [attr.in]="i?.ingredient?.id+':'+i?.id">
                                 <input type="hidden" name="user">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">élément</div>
                                 <div class="menu">
                                 <div *ngFor="let e of elementsSource" class="item" [attr.data-value]="e.id+':'+i.id">
-                                    <img class="ui mini avatar image" src="{{i.element?.image | defaultProductImage}}">
+                                    <img class="e-img" src="{{e?.image | defaultProductImage}}">
                                     {{e.name}}
                                 </div>
                                 </div>
@@ -31,7 +31,7 @@
                         <div class="field">
                             <label>Qt. gramme</label>
                             <div class="exts">
-                                <input placeholder="1 gramme" type="number" (keydown)="validate($event)" (keyup)="setGramme($event, i.id)"/>
+                                <input placeholder="0 grammes" type="number" value="{{(i.grammes>0)?i.grammes:''}}" (keydown)="validate($event)" (keyup)="setGramme($event, i.id)"/>
                                     <i class="trash alternate outline red icon" (click)="removeElement(i.id)"></i>
         
                             </div>

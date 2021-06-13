@@ -110,35 +110,13 @@
     </div>
 
     <div class="field">
-
-      <div class="two fields">
-        <div class="field">
-          <label>En stock</label>
-          <input type="number" formControlName="stock" name="stock" placeholder="total en stock..." />
-        </div>
-        <div class="field">
-          <label>Éléments</label>
-          <div class="ui fluid multiple search selection dropdown small">
-            <input type="hidden" name="country">
-            <i class="dropdown icon"></i>
-            <div class="default text">éléments</div>
-            <div class="menu">
-              <div class="item">Olive</div>
-              <div class="item">Fromage</div>
-              <div class="item">Tomate</div>
-              <div class="item">...</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="field">
       <div class="field">
         <label>description</label>
         <input type="text" formControlName="description" name="description" placeholder="description..." />
       </div>
+
+      <label class="stock-not-found" 
+      *ngIf="productForm.getValue('recipe').length == 0">En stock: aucune reçette associé</label>
     </div>
 
     <div class="field">
@@ -149,11 +127,14 @@
         <button class="ui button blue" (click)="save()"
           [disabled]="productForm.productForm.invalid">enregistrer</button>
       </div>
-
     </div>
   </form>
 
-  <make-recipe *ngIf="make_recipe" (close)="closeRecipePart()"></make-recipe>
+  <make-recipe 
+  *ngIf="make_recipe"
+  [recipe_elements]="productForm.getValue('recipe')"
+  (onRecipe)="makeRecipe($event)"
+  (close)="closeRecipePart()"></make-recipe>
 
 </div>
 
