@@ -14,15 +14,20 @@ export class RecipeComponent implements OnInit, AfterViewInit, OnChanges {
   @Output() close = new EventEmitter()
   @Output() onRecipe = new EventEmitter();
   @Input() old_recipe: Array<RecipeElement>;
+  @Input() ignore: Array<number>;
 
   @Input() recipe_elements: Array<RecipeElement> = [];
 
   elementsSource = []
-
   element_count = 0
 
   constructor(public elementService: ElementsService) { 
-    this.elementService.fetchElements().subscribe(elements=> this.elementsSource = elements )
+    this.elementService.fetchElements().subscribe(elements=> {
+      if( this.ignore )
+        this.elementsSource = elements.filter(e=> !this.ignore.includes(e.id) )
+      else
+        this.elementsSource = elements
+    })
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.recipe_elements = this.recipe_elements.sort( (a,b)=>a.id - b.id)
@@ -34,12 +39,13 @@ export class RecipeComponent implements OnInit, AfterViewInit, OnChanges {
   
   ngAfterViewInit(): void {
     this.onChangeDropdown()
+  
     $(".recipe-dropdown").each( function(i){
       let t = $(this).attr('in')
-      console.log( t )
+      
       setTimeout( ()=>{$(this).dropdown('set selected', t)}, 100)
     })
-
+    
     for(let cmp = 0; cmp < this.recipe_elements.length ;cmp++){
       let t = this.element_count
       let t1 = this.recipe_elements[cmp]
@@ -53,10 +59,11 @@ export class RecipeComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnInit(): void {
   }
 
-  closeRecipe(){
-    let final_recipe = this.recipe_elements.filter(e=>e.grammes != 0)
-    console.log( final_recipe )
-    this.onRecipe.emit( final_recipe )
+  closeRecipe(with_res = true){
+    if( with_res ){
+      let final_recipe = this.recipe_elements.filter(e=>e.grammes != 0)
+      this.onRecipe.emit( final_recipe )
+    }
     this.close.emit(false)
   }
 

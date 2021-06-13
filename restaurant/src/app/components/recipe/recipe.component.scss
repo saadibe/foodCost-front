@@ -107,3 +107,10 @@ input[type=text],input[type=number],.dropdown{
     object-fit: fill !important;
     transform: translateY(4px);
 }
+.reply{
+    cursor: pointer;
+    &:hover{
+        color: #21445e;
+        transform: scale(1.05);
+    }
+}

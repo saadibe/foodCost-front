@@ -17,11 +17,12 @@ export class ElementForm extends IDT{
             category:[[], Validators.required],
             available:[this.getFromElement('kg_in_stock'), Validators.required],
             description:[this.getFromElement('description')],
-            image: [this.getFromElement('image', null)]
+            image: [this.getFromElement('image', null)],
+            recipe: [this.getFromElement('recipe', [])]
         })
     }
 
-    getFromElement(key, r=""){
+    getFromElement(key, r: any = ""){
         if( this.element == null )return r
         else return this.element[key]
     }

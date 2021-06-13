@@ -46,7 +46,7 @@
 
           <label class="compose-field-label">
             <span>catégorie</span>
-            <a>
+            <a (click)="_$('.make-category').modal('show')">
               Crée une nouvelle catégorie
               <i class="question circle outline icon"></i>
             </a>
@@ -74,7 +74,7 @@
         <div class="field">
           <label class="compose-field-label">
             <span>Taille</span>
-            <a>
+            <a (click)="_$('.make-size').modal('show')">
               Crée une nouvelle taille
               <i class="question circle outline icon"></i>
             </a>
@@ -160,5 +160,36 @@
       </div>
       <button class="ui blue button" (click)="credentialVerif()">continue</button>
     </div>
+  </div>
+</div>
+
+
+
+<div class="ui tiny modal make-category">
+  <div class="header">Création d'une catégorie
+    <a>voir tout</a>
+  </div>
+  <div class="content">
+    <div class="ui input cat-a">
+      <input type="text" placeholder="catégorie"/>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="ui button blue">enregistrer</button>
+  </div>
+</div>
+
+
+<div class="ui tiny modal make-size">
+  <div class="header">Création d'une taille
+    <a>voir tout</a>
+  </div>
+  <div class="content">
+    <div class="ui input cat-a">
+      <input type="text" placeholder="taille"/>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="ui button blue">enregistrer</button>
   </div>
 </div>

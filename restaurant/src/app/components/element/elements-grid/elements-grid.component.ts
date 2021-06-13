@@ -32,6 +32,7 @@ export class ElementsGridComponent implements OnInit, AfterViewInit {
       this.elements = res
       this.objectFilter.data = [...res]
       this.elements_loaded = true
+      console.log( this.elements )
     })
 
   }

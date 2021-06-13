@@ -188,3 +188,15 @@ input[type=file]{
         box-shadow: 1px 1px 2px #c8c1c1;
     }
 }
+
+.make-category,.make-size{
+    a{
+        float: right;
+        font-size: small;
+        cursor: pointer;
+    }
+
+    .cat-a{
+        width: 100% !important;
+    }
+}

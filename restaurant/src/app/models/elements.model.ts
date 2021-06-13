@@ -1,8 +1,5 @@
 import { Category } from './category-sizes.model';
-export class RecipeIngredient{
-    public id: number;
-    public name: string;
-}
+import { RecipeModel } from './recipe.model';
 
 export class ElementModel{
 
@@ -16,5 +13,6 @@ export class ElementModel{
     public description: string
     public image: string
     public gramme_price: number = 0
+    public recipe: Array<RecipeModel> = []
 
 }

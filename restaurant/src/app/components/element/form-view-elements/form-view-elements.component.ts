@@ -7,6 +7,7 @@ import { ElementsService } from 'src/app/services/elements/elements.service';
 import { ElementForm } from './element.form';
 import { ChangeDetectorRef } from '@angular/core';
 import { Category } from 'src/app/models/category-sizes.model';
+import { RecipeModel } from 'src/app/models/recipe.model';
 
 
 declare var $: any;
@@ -22,7 +23,7 @@ declare var $: any;
   styleUrls: ['./form-view-elements.component.scss']
 })
 export class FormViewElementsComponent implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
-  
+    _$ = $
   //A dirty way to make sure that the original user is making change
   //this field will be replaced with real credentials in next version
   //PWD = admin
@@ -71,6 +72,7 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
     $(".on-action-modal").modal('hide')
     $(".on-action-modal").remove()
     $(".on-enter-modal-password-e").remove()
+    $(".make-category-1").remove()
   }
 
   ngAfterViewInit(): void {
@@ -82,6 +84,8 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
     $(".on-action-modal").modal({closable:false})
     //form view need permission to access
     $(".on-enter-modal-password-e").modal({closable: false})
+
+    $(".make-category-1").modal()
     //verify permission
     this.openVerifCredentials()
 
@@ -164,8 +168,22 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
     t.elementCategorys = this.elementForm.getValue('category')
     .map(e=>this.categorys.filter(ct=> ct.id == e)[0])
 
-
+    t.recipe = this.elementForm.getValue('recipe')
     return t
+  }
+
+
+  makeRecipe(event){
+    let t = []
+
+    event.forEach( e=>{
+      let item = new RecipeModel()
+      item.grammes = parseFloat( e.grammes )
+      item.ingredient = e.ingredient
+      t.push( item )
+    })
+    console.log( t )
+    this.elementForm.elementForm.patchValue({recipe: t })
   }
 
   credentialVerif(){

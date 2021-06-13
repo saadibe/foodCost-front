@@ -2,6 +2,7 @@
     <h3> 
         <a class="ui empty circular blue label"></a>
         Reçette
+        <i class="reply icon" (click)="closeRecipe(false)"></i>
     </h3>
 
     <h1 *ngIf="recipe_elements == null || recipe_elements.length == 0" class="welc">Cliquez pour ajouter des composants</h1>
@@ -44,10 +45,10 @@
         </div>
 
         <div class="acts">
-            <button class="ui button orange icon circular add-new" (click)="addNew()"><i class="plus icon"></i></button>
+            <button [disabled]="recipe_elements.length == elementsSource.length" class="ui button orange icon circular add-new" (click)="addNew()"><i class="plus icon"></i></button>
             <div class="">
                 <button class="ui button" (click)="annuler()">annuler</button>
-                <button class="ui button blue go-back" (click)="closeRecipe()">retour</button>
+                <button class="ui button blue go-back" (click)="closeRecipe()">confirmer</button>
             </div>
         </div>
 

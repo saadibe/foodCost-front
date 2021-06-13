@@ -3,10 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { ProductForm } from './product.form';
 import { FormAction } from 'src/app/libs/ViewModes.enum';
-import { ProductModel, ProductRecipe } from 'src/app/models/product.model';
+import { ProductModel } from 'src/app/models/product.model';
 import { Category, CategorySize, Size } from 'src/app/models/category-sizes.model';
 import { CategorySizeService } from 'src/app/services/category-size/category-size.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { RecipeModel } from 'src/app/models/recipe.model';
 
 declare var $: any;
 
@@ -20,6 +21,7 @@ declare var $: any;
 })
 export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChecked ,OnDestroy {
  
+  _$ = $
   //A dirty way to make sure that the original user is making change
   //this field will be replaced with real credentials in next version
   //PWD = admin
@@ -67,7 +69,8 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
     $(".on-enter-modal-password").modal('hide')
     $(".on-action-modal").remove()
     $(".on-enter-modal-password").remove()
-
+    $(".make-category").remove()
+    $(".make-size").remove()
   }
 
   ngAfterViewInit(): void {
@@ -76,7 +79,8 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
     
     $(".on-action-modal").modal({closable:false})
     $(".on-enter-modal-password").modal({closable: false})
-
+    $(".make-category").modal()
+    $(".make-size").modal()
     //need permission to access this form
     this.openVerifCredentials()
 
@@ -175,6 +179,7 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
     //set the values in the dropdowns
     $("#category-product-dropdown").dropdown('set selected', cat2)
     $("#size-product-dropdown").dropdown('set selected', siz2)
+
   }
   
   //remove product
@@ -220,14 +225,12 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
     let t = []
 
     event.forEach( e=>{
-      console.log( e )
-      let item = new ProductRecipe()
+      let item = new RecipeModel()
       item.grammes = parseFloat( e.grammes )
       item.ingredient = e.ingredient
       t.push( item )
     })
 
-    console.log( t )
     this.productForm.productForm.patchValue({recipe: t })
   }
 

@@ -44,7 +44,7 @@
                 <div class="field">
                     <label class="compose-field-label">
                         <span>catégorie</span>
-                        <a>
+                        <a (click)="_$('.make-category-1').modal('show')">
                             Crée une nouvelle catégorie
                             <i class="question circle outline icon"></i>
                         </a>
@@ -95,7 +95,7 @@
                 </div>
             </div>
 
-        <label class="stock-not-found">En stock: aucune reçette associé</label>
+        <label *ngIf="elementForm.getValue('recipe').length == 0" class="stock-not-found">En stock: aucune reçette associé</label>
         </div>
 
 
@@ -115,7 +115,11 @@
 
     </form>
 
-    <make-recipe *ngIf="make_recipe" (close)="closeRecipePart()"></make-recipe>
+    <make-recipe 
+    [ignore]="[element?.id]"
+    [recipe_elements]="elementForm.getValue('recipe')"
+    (onRecipe)="makeRecipe($event)"
+    *ngIf="make_recipe" (close)="closeRecipePart()"></make-recipe>
 
     
 </div>
@@ -140,5 +144,19 @@
           </div>
           <button class="ui blue button" (click)="credentialVerif()">continue</button>
       </div>
+    </div>
+  </div>
+
+  <div class="ui tiny modal make-category-1">
+    <div class="header">Création d'une catégorie
+      <a>voir tout</a>
+    </div>
+    <div class="content">
+      <div class="ui input cat-a">
+        <input type="text" placeholder="catégorie"/>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="ui button blue">enregistrer</button>
     </div>
   </div>
