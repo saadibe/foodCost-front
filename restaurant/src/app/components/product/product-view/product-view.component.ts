@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, AfterViewChecked, AfterContentChecked } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, AfterViewChecked, AfterContentChecked, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { ProductForm } from './product.form';
@@ -8,6 +8,7 @@ import { Category, CategorySize, Size } from 'src/app/models/category-sizes.mode
 import { CategorySizeService } from 'src/app/services/category-size/category-size.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { RecipeModel } from 'src/app/models/recipe.model';
+import { watchField } from 'src/app/libs/rxtools';
 
 declare var $: any;
 
