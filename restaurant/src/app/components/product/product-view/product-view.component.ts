@@ -38,6 +38,9 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
   productForm: ProductForm;
   categorysSizes = new CategorySize([], []);
 
+  @ViewChild('CATEGORY_ADD_FIELD') CATEGORY_ADD_FIELD:ElementRef;
+  @ViewChild('SIZE_ADD_FIELD') SIZE_ADD_FIELD:ElementRef;
+
   constructor(private router: Router,
     private cdRef:ChangeDetectorRef,
     private acrouter: ActivatedRoute,
@@ -84,6 +87,15 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
     $(".make-size").modal()
     //need permission to access this form
     this.openVerifCredentials()
+
+    
+  //no need to form to validate category and size add
+  //only one field will be watched and validated by the api
+  //if everything is okay than we can save it, otherwise no
+  //requests will be sended on change value with a debounce time 350ms
+  //Rxjs tool 
+   this.productForm.watchNewCategoryField( this.CATEGORY_ADD_FIELD, this.categorySizeService ).subscribe()
+   this.productForm.watchNewSizeField( this.SIZE_ADD_FIELD, this.categorySizeService ).subscribe()
 
   }
 
@@ -259,5 +271,28 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
       this.setSelectedCategorysSizes()
     }, 50)
 
+  }
+
+  //save new category
+  saveCategory(){
+
+    let value = this.CATEGORY_ADD_FIELD.nativeElement.value
+
+    $(".on-action-modal").modal('show')
+    this.categorySizeService.saveCategory( new Category(value) )
+    .subscribe( res=>{
+      setTimeout( ()=> $(".modal").modal('hide'), 800)
+    })
+  }
+
+
+  //save new size
+  saveSize(){
+    let value = this.SIZE_ADD_FIELD.nativeElement.value
+    $(".on-action-modal").modal('show')
+    this.categorySizeService.saveSize( new Size(value) )
+    .subscribe( res=> {
+      setTimeout( ()=> $(".modal").modal('hide'), 800)
+    })
   }
 }

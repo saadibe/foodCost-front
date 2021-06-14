@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormAction } from 'src/app/libs/ViewModes.enum';
 import { ElementModel } from 'src/app/models/elements.model';
@@ -38,6 +38,8 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
   formAction = FormAction
   elementForm: ElementForm;
   categorys = [];
+
+  @ViewChild('CATEGORY_ADD_FIELD') CATEGORY_ADD_FIELD:ElementRef;
 
   constructor(private router: Router,
     private cdRef:ChangeDetectorRef,
@@ -88,6 +90,14 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
     $(".make-category-1").modal()
     //verify permission
     this.openVerifCredentials()
+
+
+  //no need to form to validate category and size add
+  //only one field will be watched and validated by the api
+  //if everything is okay than we can save it, otherwise no
+  //requests will be sended on change value with a debounce time 350ms
+  //Rxjs tool
+    this.elementForm.watchNewCategoryField(this.CATEGORY_ADD_FIELD, this.categorysSizeService).subscribe()
 
   }
   
@@ -236,5 +246,17 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
       this.setSelectedCategorys()
     }, 25)
 
+  }
+
+//save new category
+  saveCategory(){
+
+    let value = this.CATEGORY_ADD_FIELD.nativeElement.value
+
+    $(".on-action-modal").modal('show')
+    this.categorysSizeService.saveCategory( new Category(value) )
+    .subscribe( res=>{
+      setTimeout( ()=> $(".modal").modal('hide'), 800)
+    })
   }
 }

@@ -1,11 +1,18 @@
 import { ElementModel } from 'src/app/models/elements.model';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IDT } from "src/app/libs/IDT";
+import { ElementRef } from '@angular/core';
+import { CategorySizeService } from 'src/app/services/category-size/category-size.service';
+import { Observable } from 'rxjs';
+import { watchField } from 'src/app/libs/rxtools';
 
 
 export class ElementForm extends IDT{
     public elementForm: FormGroup;
     private formBuilder: FormBuilder;
+
+    public cantSaveNewCategory = true
+    public existCategory = false
 
     constructor(private element: ElementModel){
         super();
@@ -39,5 +46,26 @@ export class ElementForm extends IDT{
     }
     public invalidError( e, type ){
         return this.VDT( e ).touched && this.VDT( e ).desc[type]
+    }
+
+
+    public watchNewCategoryField(categoryField: ElementRef, categoryService: CategorySizeService){
+        return new Observable( observer=>{
+            watchField(categoryField).subscribe( value =>{
+                if( value.length > 3 )
+                    categoryService.categoryExist( value )
+                    .subscribe( res => {
+                        this.cantSaveNewCategory = (res == true)
+                        observer.next(res)
+
+                        if( res ){
+                            this.existCategory = true
+                            setTimeout( ()=>this.existCategory = false, 2500 )
+                        }
+                    })
+                else
+                    this.cantSaveNewCategory = true
+            })            
+        })
     }
 }
