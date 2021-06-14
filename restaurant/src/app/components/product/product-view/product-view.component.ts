@@ -276,23 +276,24 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
   //save new category
   saveCategory(){
 
-    let value = this.CATEGORY_ADD_FIELD.nativeElement.value
-
     $(".on-action-modal").modal('show')
+    let value = this.CATEGORY_ADD_FIELD.nativeElement.value
     this.categorySizeService.saveCategory( new Category(value) )
     .subscribe( res=>{
-      setTimeout( ()=> $(".modal").modal('hide'), 800)
+      this.CATEGORY_ADD_FIELD.nativeElement.value = ""
+      setTimeout( ()=> $(".modal").modal('hide'), 1050)
     })
   }
 
 
   //save new size
   saveSize(){
-    let value = this.SIZE_ADD_FIELD.nativeElement.value
     $(".on-action-modal").modal('show')
+    let value = this.SIZE_ADD_FIELD.nativeElement.value
     this.categorySizeService.saveSize( new Size(value) )
     .subscribe( res=> {
-      setTimeout( ()=> $(".modal").modal('hide'), 800)
+      this.SIZE_ADD_FIELD.nativeElement.value = ""
+      setTimeout( ()=> $(".modal").modal('hide'), 1050)
     })
   }
 }

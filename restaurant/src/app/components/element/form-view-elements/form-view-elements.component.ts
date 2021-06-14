@@ -256,7 +256,7 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
     $(".on-action-modal").modal('show')
     this.categorysSizeService.saveCategory( new Category(value) )
     .subscribe( res=>{
-      setTimeout( ()=> $(".modal").modal('hide'), 800)
+      setTimeout( ()=> $(".modal").modal('hide'), 1050)
     })
   }
 }
