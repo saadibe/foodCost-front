@@ -44,7 +44,7 @@
           [TEMPLATE_REF]="'product-grid-img-tippy-'+product.id"
           *ngFor="let product of products | paginate: gridControls.pagination_config"
           class="center aligned"
-          [ngClass]="{'error': product.total_stock == 0, 'warning': product.total_stock > 0 && product.total_stock <= 8}"
+          [ngClass]="{'error': product.total_stock == 0, 'warning': product.total_stock > 0 && product.total_stock < 100}"
           (click)="editProduct(product.id)">
             
             <td class="td-id" [ngClass]="gridControls.fieldClassAction('id', false)">
@@ -87,11 +87,10 @@
             </td>
             
             <td class="td-total_stock" [ngClass]="gridControls.fieldClassAction('total_stock', false)">
-              <span *ngIf="product.total_stock > 8" class="stock-label ok-stock">disponible</span>
-              <span *ngIf="product.total_stock > 0 && product.total_stock <= 8" class="stock-label warning-stock">disponible</span>
-
+              <span *ngIf="product.total_stock == 100" class="stock-label ok-stock">disponible</span>
+              <span *ngIf="product.total_stock > 0 && product.total_stock < 100" class="stock-label warning-stock">manque</span>
               <span *ngIf="product.total_stock == 0" class="stock-label error-stock">indisponible</span>
-              
+              <span *ngIf="product.total_stock < 0" class="stock-label default-stock">pas de reçette</span>
             </td>
 
           </tr>

@@ -102,13 +102,13 @@ $searchempty: 0;
     font-weight: 600;
 }
 .warning-stock{
-    background: #eec67f;//ead9a9;
+    background: #eed67f;
     padding: 1px;
     font-size: smaller;
     padding-left:  8px;
     padding-right: 8px;
     border-radius: 5px;
-    color: #98803e;//ae7f2b;
+    color: #ae7f2b;
     font-weight: 600;
 }
 .error-stock{
@@ -120,6 +120,17 @@ $searchempty: 0;
     border-radius: 5px;
     color: #ae3e3e;
     font-weight: 600;
+}
+
+.default-stock{
+    background: #e8e8e8;
+    padding: 1px;
+    font-size: smaller;
+    padding-left:  8px;
+    padding-right: 8px;
+    border-radius: 5px;
+    font-weight: 600;
+    color: #6c6565;
 }
 .pr-404{
 

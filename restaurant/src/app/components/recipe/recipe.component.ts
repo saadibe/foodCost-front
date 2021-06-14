@@ -97,6 +97,19 @@ export class RecipeComponent implements OnInit, AfterViewInit, OnChanges {
     })
   }
 
+  errorStock(id){
+    try{
+      let t = this.recipe_elements.filter(e=>e.id == id)[0]
+      if( !t ) return false
+      let kg = this.elementsSource.filter(e=> e.id == t.ingredient.id)[0]
+      if( !kg ) return false
+      kg = kg.kg_in_stock
+      return (t.grammes / 1000) > kg
+    }catch(ex){
+      return false
+    }
+  }
+
   removeElement( id ){
     this.recipe_elements = this.recipe_elements.filter(e=> e.id != id)
   }

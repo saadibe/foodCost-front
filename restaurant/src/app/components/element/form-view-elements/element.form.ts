@@ -49,6 +49,8 @@ export class ElementForm extends IDT{
     }
 
 
+    //watch change on category field to add, and find simialire in DB
+    //if no we can save it, otherwise no
     public watchNewCategoryField(categoryField: ElementRef, categoryService: CategorySizeService){
         return new Observable( observer=>{
             watchField(categoryField).subscribe( value =>{

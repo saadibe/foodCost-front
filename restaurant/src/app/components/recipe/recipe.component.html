@@ -15,8 +15,12 @@
                     <div class="two fields ffl">
 
                         <div class="field">
-                            <label>Élément</label>
-                            <div class="ui fluid selection dropdown recipe-dropdown" [attr.in]="i?.ingredient?.id+':'+i?.id">
+                            <label>Élément
+                                <a class="error-stock-56" *ngIf="errorStock(i.id)">stock insuffisant
+                                    <i class="attention icon"></i>
+                                </a>
+                            </label>
+                            <div [ngClass]="{'error-stock': errorStock(i.id)}" class="ui fluid selection dropdown recipe-dropdown" [attr.in]="i?.ingredient?.id+':'+i?.id">
                                 <input type="hidden" name="user">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">élément</div>
