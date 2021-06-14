@@ -250,12 +250,11 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
 
 //save new category
   saveCategory(){
-
-    let value = this.CATEGORY_ADD_FIELD.nativeElement.value
-
     $(".on-action-modal").modal('show')
+    let value = this.CATEGORY_ADD_FIELD.nativeElement.value
     this.categorysSizeService.saveCategory( new Category(value) )
     .subscribe( res=>{
+      this.CATEGORY_ADD_FIELD.nativeElement.value = ""
       setTimeout( ()=> $(".modal").modal('hide'), 1050)
     })
   }
