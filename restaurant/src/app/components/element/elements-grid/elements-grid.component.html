@@ -69,11 +69,28 @@
 
 
         <td class="td-kg_in_stock" [ngClass]="gridControls.fieldClassAction('kg_in_stock', false)">
-          <span *ngIf="element.kg_in_stock > 8" class="stock-label ok-stock">disponible</span>
-          <span *ngIf="element.kg_in_stock > 0 && element.kg_in_stock <= 8"
-            class="stock-label warning-stock">disponible</span>
+          <span *ngIf="(element.kg_in_stock >= 8)&&(element.total_stock == -1)" class="stock-label ok-stock">disponible</span>
+          <span *ngIf="(element.total_stock == 100)" class="stock-label ok-stock">disponible</span>
+          
+          <span *ngIf="(element.kg_in_stock > 0 && element.kg_in_stock < 8)&&(element.total_stock == -1)"
+            class="stock-label warning-stock">
+            disponible
+          </span>
 
-          <span *ngIf="element.kg_in_stock == 0" class="stock-label error-stock">indisponible</span>
+
+          <span *ngIf="(element.total_stock > 0 && element.total_stock < 100)"
+            class="stock-label warning-stock">
+            manque
+          </span>
+
+          <span *ngIf="(element.kg_in_stock == 0) && (element.total_stock == -1)" class="stock-label error-stock">
+            indisponible
+          </span>
+
+
+          <span *ngIf=" (element.total_stock == 0)" class="stock-label warning-stock">
+            manque
+          </span>
 
         </td>
 

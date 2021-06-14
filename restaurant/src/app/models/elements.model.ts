@@ -14,5 +14,6 @@ export class ElementModel{
     public image: string
     public gramme_price: number = 0
     public recipe: Array<RecipeModel> = []
+    public total_stock: number = 0
 
 }
