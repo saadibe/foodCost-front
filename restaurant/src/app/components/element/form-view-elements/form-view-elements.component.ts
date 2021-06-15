@@ -258,4 +258,5 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
       setTimeout( ()=> $(".modal").modal('hide'), 1050)
     })
   }
+  
 }

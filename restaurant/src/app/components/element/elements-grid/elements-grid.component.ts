@@ -13,7 +13,7 @@ import { HEADERS } from '../elements-grid.headers';
 })
 export class ElementsGridComponent implements OnInit, AfterViewInit {
 
-  objectFilter = new ObjectFilter([], ['image'])
+  objectFilter = new ObjectFilter([], ['image', 'recipe'])
   formAction = FormAction
   canExport = false
   elements = []

@@ -17,7 +17,7 @@
                         <div class="field">
                             <label>Élément
                                 <a class="error-stock-56" *ngIf="errorStock(i.id)">stock insuffisant
-                                    <i class="attention icon"></i>
+                                    <i class="attention icon disl"></i>
                                 </a>
                             </label>
                             <div [ngClass]="{'error-stock': errorStock(i.id)}" class="ui fluid selection dropdown recipe-dropdown" [attr.in]="i?.ingredient?.id+':'+i?.id">

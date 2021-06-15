@@ -124,3 +124,7 @@ input[type=text],input[type=number],.dropdown{
     font-weight: 600;
     font-size: smaller;
 }
+
+@media screen and (max-width: 380px){
+    .disl{ display: none;}
+}

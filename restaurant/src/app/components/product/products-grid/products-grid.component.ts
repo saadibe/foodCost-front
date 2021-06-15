@@ -15,7 +15,7 @@ export class ProductsGridComponent implements OnInit, AfterViewInit {
 
   gridControls: GridActionControl;
   formAction = FormAction
-  objectFilter = new ObjectFilter([], ['image'])
+  objectFilter = new ObjectFilter([], ['image', 'recipe'])
   canExport = false
   products = []
   products_tips = []
@@ -32,7 +32,10 @@ export class ProductsGridComponent implements OnInit, AfterViewInit {
       this.products_loaded = true
       //init object filter
       this.objectFilter.data = [...products].map( e=> {
-        e['ts'] = (e.total_stock == 0)?'indisponible':'disponible'
+        if( e.total_stock == 0)e['ts'] = 'indisponible'
+        else if( e.total_stock == -1) e['ts'] = 'pas de reçette'
+        else if( e.total_stock == 100) e['ts'] = 'disponible'
+        else if( e.total_stock < 100 ) e['ts'] = 'manque'
         return e
       })
     })

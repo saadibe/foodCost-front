@@ -48,7 +48,8 @@
           (click)="editProduct(product.id)">
             
             <td class="td-id" [ngClass]="gridControls.fieldClassAction('id', false)">
-              <i class="attention icon" *ngIf="product.total_stock == 0"></i>
+              <i class="mnatt exclamation triangle icon" *ngIf="product.total_stock > 0 && product.total_stock < 100"></i>
+              <i class="mnatt attention icon" *ngIf="product.total_stock == 0"></i>
               #{{product.id}}
             </td>
             

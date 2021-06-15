@@ -44,7 +44,10 @@
         [ngClass]="{'error': element.kg_in_stock == 0, 'warning': element.kg_in_stock > 0 && element.kg_in_stock <= 8}">
 
         <td class="td-id" [ngClass]="gridControls.fieldClassAction('id', false)">
-          <i class="attention icon" *ngIf="element.kg_in_stock == 0"></i>
+          <i class="mnatt attention icon" *ngIf="element.kg_in_stock == 0 && element.total_stock == -1"></i>
+          <i class="mnatt exclamation triangle icon" *ngIf="element.total_stock > 0 && element.total_stock < 100"></i>
+          <i class="mnatt exclamation triangle icon" *ngIf="element.total_stock == 0"></i>
+              
           #{{element.id}}
         </td>
 

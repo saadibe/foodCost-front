@@ -250,10 +250,11 @@ thead>tr>th{
     font-weight: 600;
     color: blue !important;
 }
-.attention{
+.mnatt{
     position: absolute;
     left: 5px;
 }
+
 .hovered-td-header{
     background: #e8e8e9;
     color: rgb(34, 33, 33) ;
@@ -311,4 +312,24 @@ thead>tr>th{
     color: #a5abb0;
     width: 100%;
     text-align: center;
+}
+
+
+.exclamation{
+    color: #b17f2b;
+    animation: attn 1s infinite;
+}
+
+
+@keyframes attn {
+	0% {
+		color: #b17f2b;
+	}
+	70% {
+		color: #c0bd22;
+	}
+
+	100% {
+		color: #b17f2b;
+	}
 }

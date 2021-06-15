@@ -25,7 +25,7 @@ input[type=text],input[type=number]{
     border-radius: 10px !important;
     border: none !important;
     font-weight: 600;
-    height: 1rem !important;
+    height: max-content !important;
     .default{
         color: #b0b0b1 !important;
     }
@@ -176,6 +176,10 @@ input[type=file]{
         border-radius: 5px;
         padding-left: 6px;
         box-shadow: 1px 1px 2px #c8c1c1;
+        .mnatt{
+            color: white;
+            animation: unset;
+        }
     }
 }
 
@@ -196,4 +200,36 @@ input[type=file]{
 
     font-weight: 600;
     color: #f45151;
+}
+
+.mnatt{
+    color: #df6262;
+    border-radius: 100px;
+    animation: pulse 1s infinite;
+}
+@keyframes pulse {
+	0% {
+		box-shadow: 0 0px 0 0 rgba(255, 123, 0, 0.7);
+	}
+	70% {
+		box-shadow: 0 0px 0 11px rgba(248, 124, 41, 0);
+	}
+
+	100% {
+		box-shadow: 0 0 0 0 rgba(201, 15, 15, 0);
+	}
+}
+
+@media screen and( max-width: 765px){
+    .recette-btn{
+        width: max-content;
+        top: 80px;
+        left: 2px;
+    }
+}
+
+@media screen and( max-width: 420px){
+    .recette-btn{
+        top: 55px;
+    }
 }
