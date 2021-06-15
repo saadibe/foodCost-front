@@ -20,7 +20,7 @@
 </div>
 
 <a *ngIf="!make_recipe" (click)="make_recipe = true" class="recette-btn">
-    <i class="mnatt attention icon" *ngIf="element.total_stock >= 0 && element.total_stock < 100"></i>
+    <i class="mnatt attention icon" *ngIf="element != null && element?.total_stock >= 0 && element?.total_stock < 100"></i>
     {{ (action == formAction.CREATE)?'Ajouter une reçette':'Modifier la reçette' }}
     <i class="question circle outline icon"></i>
 </a>

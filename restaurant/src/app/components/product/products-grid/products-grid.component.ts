@@ -30,6 +30,8 @@ export class ProductsGridComponent implements OnInit, AfterViewInit {
       this.products = products
       this.products_tips = products
       this.products_loaded = true
+
+      console.log( products )
       //init object filter
       this.objectFilter.data = [...products].map( e=> {
         if( e.total_stock == 0)e['ts'] = 'indisponible'

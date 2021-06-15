@@ -51,8 +51,8 @@
         <div class="acts">
             <button [disabled]="recipe_elements.length == elementsSource.length" class="ui button orange icon circular add-new" (click)="addNew()"><i class="plus icon"></i></button>
             <div class="">
-                <button class="ui button" (click)="annuler()">annuler</button>
-                <button class="ui button blue go-back" (click)="closeRecipe()">confirmer</button>
+                <button class="ui button" [disabled]="recipe_elements.length == 0" (click)="annuler()">annuler</button>
+                <button class="ui button blue go-back" [disabled]="recipe_elements.length == 0" (click)="closeRecipe()">confirmer</button>
             </div>
         </div>
 
