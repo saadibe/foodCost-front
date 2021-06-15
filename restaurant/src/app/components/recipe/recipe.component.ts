@@ -32,6 +32,8 @@ export class RecipeComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.recipe_elements = this.recipe_elements.sort( (a,b)=>a.id - b.id)
     this.recipe_elements.map( e=>{
+      
+      e['index'] = e.id
       e.id = this.element_count++
       return e
     })
@@ -61,7 +63,12 @@ export class RecipeComponent implements OnInit, AfterViewInit, OnChanges {
 
   closeRecipe(with_res = true){
     if( with_res ){
-      let final_recipe = this.recipe_elements.filter(e=>e.grammes != 0)
+      let final_recipe = this.recipe_elements.filter(e=>e.grammes != 0).map(e=> {
+        e.id = e['index']
+        return e
+      })
+   
+      console.log( final_recipe )
       this.onRecipe.emit( final_recipe )
     }
     this.close.emit(false)

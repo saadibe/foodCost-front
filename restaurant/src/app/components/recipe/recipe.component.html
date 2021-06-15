@@ -5,7 +5,9 @@
         <i class="reply icon" (click)="closeRecipe(false)"></i>
     </h3>
 
-    <h1 *ngIf="recipe_elements == null || recipe_elements.length == 0" class="welc">Cliquez pour ajouter des composants</h1>
+    <h1 *ngIf="elementsSource.length > 0 && (recipe_elements == null || recipe_elements.length == 0)" class="welc">Cliquez pour ajouter des composants</h1>
+    <h1 *ngIf="elementsSource.length == 0" class="welc">Pas d'éléments suffisants enregistrés</h1>
+    
     <div class="flexy">
         <div class="f-form">
             <div class="scroller" #SCROLLER>

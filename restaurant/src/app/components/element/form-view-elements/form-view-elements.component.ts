@@ -138,6 +138,7 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
           //create element and make other
           this.element = null
           this.elementForm = new ElementForm(null)
+          $(".dropdown").dropdown('clear')
         }
       })
     }
@@ -190,9 +191,10 @@ export class FormViewElementsComponent implements OnInit, AfterViewChecked, Afte
       let item = new RecipeModel()
       item.grammes = parseFloat( e.grammes )
       item.ingredient = e.ingredient
+      item.id = e.id
       t.push( item )
     })
-    console.log( t )
+    
     this.elementForm.elementForm.patchValue({recipe: t })
   }
 

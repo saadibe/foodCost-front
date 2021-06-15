@@ -140,6 +140,7 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
         else{
           this.product = null
           this.productForm = new ProductForm(null)
+          $(".dropdown").dropdown('clear')
         }
       })
     }
@@ -240,6 +241,7 @@ export class ProductViewComponent implements OnInit, AfterViewInit,AfterViewChec
       let item = new RecipeModel()
       item.grammes = parseFloat( e.grammes )
       item.ingredient = e.ingredient
+      item.id = e.id
       t.push( item )
     })
 
