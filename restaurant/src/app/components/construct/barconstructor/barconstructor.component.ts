@@ -1,4 +1,4 @@
-import { DragItem, onChooseProduct, onRejectProduct } from '../construction/item.dragdrop.actions';
+import { DragItem, emptyElementsLoad, emptyProductsLoad, onChooseProduct, onRejectProduct } from '../construction/item.dragdrop.actions';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { RemovedItem } from '../construction/item.dragdrop.actions';
@@ -18,24 +18,34 @@ export class BarconstructorComponent implements OnInit {
   elements = []
   constructor(private productsService: ProductsService, private elementsService: ElementsService) { 
     //get all products
-    this.productsService.fetchProducts().subscribe( products=> this.products = products )
+    this.productsService.fetchProducts().subscribe( products=> {
+      this.products = products
+      //informer le parent si ya pas des produits
+      emptyProductsLoad.next( products.length == 0 )
+    })
     //get all elements
-    this.elementsService.fetchElements().subscribe( elements=> this.elements = elements.map(e=>{
+    this.elementsService.fetchElements().subscribe( elements=>{
+      emptyElementsLoad.next( elements.length == 0)
+      this.elements = elements.map(e=>{
       //set the default gramme of every element = 10
       e['gramme'] = 10
       return e
-    }))
+    })})
     
     //on product rejected, reset
     onRejectProduct.subscribe(res=> {
       this.productHasChoosed = res
-      this.elementsService.fetchElements().subscribe( elements=> this.elements = elements.map(e=>{
-        e['gramme'] = 10
-        return e
-      }))
+      this.elementsService.fetchElements().subscribe( elements=>
+        this.elements = elements.map(e=>{
+          e['gramme'] = 10
+          return e
+        })
+      )
     })
     
   }
+    
+  
 
   ngOnInit(): void {
   }

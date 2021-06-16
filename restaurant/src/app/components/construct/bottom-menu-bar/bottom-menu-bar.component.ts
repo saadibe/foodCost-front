@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ElementsService } from 'src/app/services/elements/elements.service';
 import { ProductsService } from 'src/app/services/products/products.service';
-import { DragItem, onChooseProduct, onRejectProduct, RemovedItem } from '../construction/item.dragdrop.actions';
+import { DragItem, emptyElementsLoad, emptyProductsLoad, onChooseProduct, onRejectProduct, RemovedItem } from '../construction/item.dragdrop.actions';
 declare var $: any;
 @Component({
   selector: 'construct-bottom-menu-bar',
@@ -16,14 +16,21 @@ export class BottomMenuBarComponent implements OnInit, AfterViewInit {
   constructor(private elementsService: ElementsService, private productsService: ProductsService) {
     
     //get all products
-    this.productsService.fetchProducts().subscribe( products=> this.products = products )
+    this.productsService.fetchProducts().subscribe( products=> {
+      //informer le parent si ya pas des produits
+      emptyProductsLoad.next( products.length == 0)
+      this.products = products
+    })
     
     //get all elements
-    this.elementsService.fetchElements().subscribe( elements=> this.elements = elements.map(e=>{
+    this.elementsService.fetchElements().subscribe( elements=>{
+      //informer le parent si ya pas des éléments
+      emptyElementsLoad.next( elements.length == 0)
+      this.elements = elements.map(e=>{
       //set every element with default gramme = 10
       e['gramme'] = 10
       return e
-    }))
+    })})
     
     //notify on product rejected, than reset
     onRejectProduct.subscribe(res=> {

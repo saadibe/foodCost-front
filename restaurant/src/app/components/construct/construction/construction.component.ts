@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit, ViewChildren, QueryList, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { DragItem, onChooseProduct, onRejectProduct, RemovedItem } from './item.dragdrop.actions';
+import { DragItem, emptyElementsLoad, emptyProductsLoad, onChooseProduct, onRejectProduct, RemovedItem } from './item.dragdrop.actions';
 declare var $: any;
 @Component({
   selector: 'app-construction',
@@ -8,6 +8,8 @@ declare var $: any;
   styleUrls: ['./construction.component.scss']
 })
 export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
+  productEmptyList = false
+  elementsEmptyList = false
   product = [];
   isDragged = false
   price: number = 0
@@ -15,6 +17,10 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('GRAMMAGES') GRAMMAGES!: QueryList<ElementRef>;
 
   constructor() {
+    //reste en écoute si les produits ou les éléments n'existe pas
+    emptyProductsLoad.subscribe(res => this.productEmptyList = res)
+    emptyElementsLoad.subscribe(res => this.elementsEmptyList = res )
+
     //notify if element is removed from product
     RemovedItem.subscribe(res=>{
       if( res == null )return
