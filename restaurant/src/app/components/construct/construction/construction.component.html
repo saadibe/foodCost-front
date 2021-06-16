@@ -45,9 +45,9 @@
       <div  class="content-product" [ngClass]="{'go-side-900':product.length>0}" cdkDropList id="CONSTRUCTOR-FOOD"
         [cdkDropListConnectedTo]="['ELEMENTS-FOOD-CONSTRUCTOR']" [cdkDropListData]="product"
         (cdkDropListDropped)="onDrop($event)">
-        <h1 *ngIf="!productType && !productEmptyList" class="select-product-type">Choisissez un produit</h1>
+        <h1 *ngIf="!productType && !productEmptyList && !elementsEmptyList" class="select-product-type">Choisissez un produit</h1>
         <h1 *ngIf="productEmptyList" class="select-product-type">Aucun produit trouvé</h1>
-        <h1 *ngIf="elementsEmptyList" class="select-product-type">Aucun élément trouvé</h1>
+        <h1 *ngIf="elementsEmptyList && !productEmptyList" class="select-product-type">Aucun élément trouvé</h1>
         <img *ngIf="productType && !elementsEmptyList" [ngClass]="{ beside: isDragged }" class="product-image" src="{{productType?.image|defaultProductImage}}" />
         
       </div>
