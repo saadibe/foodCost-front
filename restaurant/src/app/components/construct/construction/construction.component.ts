@@ -157,9 +157,10 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
   makeProduct(){
     let item = new ConstructionModel()
     item.label = Math.random().toString(36).substring(7)
-    item.discount = Math.floor(Math.random() * 25)
+    item.discount = 0
     item.qrcode = "UNDEFINED"
     item.final_price = this.price
+    item.old_price = this.price
 
     this.product.forEach( e=>{
       item.customRecipes.push(
@@ -192,7 +193,26 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
     this.product_ordered_list.forEach(e=>{
       final_price += e.final_price
     })
-    return final_price
+    return parseFloat(final_price.toFixed(2))
+  }
+
+  discountInvoice(item: ConstructionModel, event){
+    this.product_ordered_list.map(e=>{
+      if( e == item ){
+        let discount = (isNaN(event.target.value))?0:event.target.value
+        e.discount = discount
+        e.final_price = parseFloat( (e.old_price -  ( (e.old_price * discount) / 100 )).toFixed(2) )
+        return e
+      }
+    })
+  }
+
+  getInvoiceDate(with_time = false){
+    let today = new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    if( !with_time ) return date
+    date+=" "+today.getHours() + ":" + today.getMinutes()
+    return date
   }
 
 }

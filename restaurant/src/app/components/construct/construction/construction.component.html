@@ -125,7 +125,7 @@
 <div class="ui large modal construction-facturation-modal">
   <div class="header hyuz">
 
-    <span>Facturation</span>
+    <span>Facturation <span class="invoice-date">{{getInvoiceDate()}}</span></span>
     <span>{{calcFinalPrice()}}DT</span>
     
   </div>
@@ -134,7 +134,14 @@
       
       <table class="facture-table ui structured striped very compact small table" *ngFor="let item of product_ordered_list">
         <tr class="jalo">
-          <th colspan="4">{{item?.customRecipes[0]?.product?.name}}</th>
+          <th colspan="4">
+            <div class="facture-header">
+            <span>{{item?.customRecipes[0]?.product?.name}}</span>
+            
+              <input placeholder="remise: 0%" type="number" (keyup)="discountInvoice(item, $event)"/>
+        
+          </div>
+          </th>
         </tr>
         <tr class="center aligned">
           <th>Élément</th>
@@ -149,15 +156,21 @@
           <td>{{ parseForPrintGrammePrice( e.gramme_price , e.grammes )}} DT</td>
         </tr>
         <tr>
-          <td colspan="4" class="price-row-invoice">
-            <b>{{item?.final_price}}DT</b>
+          <td colspan="4" class="price-row-invoice" [ngClass]="{'danger-td': item?.final_price<0}">
+            
+            <b *ngIf="item?.final_price == 0">Gratuit</b>
+            <b *ngIf="item?.final_price != 0">{{item?.final_price}}DT</b>
           </td>
         </tr>
       </table>
 
     </div>
     
-  <div class="actions">
+  <div class="actions azht85">
+    <div class="ui input">
+      <input type="text" placeholder="description..."/>
+    </div>
+
     <button class="ui button blue big">Facturer</button>
   </div>
 </div>

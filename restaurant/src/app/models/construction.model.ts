@@ -22,6 +22,7 @@ export class ConstructionModel{
     public label: string = "";
     public qrcode: string = "";
     public discount: number;
+    public old_price: number;
     public final_price: number;
     public customRecipes: Array<ConstructionItem> = new Array();
 }

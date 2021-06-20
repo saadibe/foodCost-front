@@ -175,6 +175,37 @@ input[type=number] {
     overflow-x: hidden;
     scroll-behavior: smooth;
 }
+.facture-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    input{
+        width: 25%;
+        padding-right: 0 !important;
+        padding: 0;
+        background: #ffdbdb;
+        border-radius: 0;
+        border: none;
+        margin-right: -10px;
+    }
+}
+.azht85{
+    display: flex;
+    justify-content: space-between;
+    .input{
+        align-self: baseline;
+        height: 3.2rem;
+    }
+    button{
+        align-self: center;
+    }
+}
+.invoice-date{
+    font-size: 1rem;
+}
+.danger-td{
+    color: #d34646;
+}
 @media screen and(max-width: 1020px) and (min-width: 900px){
     .product-image {
         width: 15rem !important;
