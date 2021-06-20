@@ -25,9 +25,18 @@
     </div>
     <div class="content list" [ngClass]="{'list-395': product.length>0}" cdkDropList #ELEMENTS="cdkDropList" [cdkDropListData]="product"
       [cdkDropListConnectedTo]="['ELEMENTS-FOOD-CONSTRUCTOR','ELEMENTS-FOOD-CONSTRUCTOR-2']" (cdkDropListDropped)="onDrop($event)">
-      <div *ngIf="product.length>0" class="count">
-        <i class="shopping orange basket icon"></i>
-        <span>{{product.length}} élément<span *ngIf="product.length > 1">s</span> en {{productType.name}}</span>
+      <div *ngIf="product.length>0 || countConfirmedItems() >0" class="count">
+
+        <div *ngIf="product.length>0">
+          <i class="shopping orange basket icon"></i>
+          <span>{{product.length}} élément<span *ngIf="product.length > 1">s</span> en {{productType.name}}</span>
+        </div>
+
+        <div title="facturer" class="cart-invoice" *ngIf="countConfirmedItems() > 0" (click)="cartInvoice()" >
+          <i class="shopping cart orange icon"></i>
+          <span>{{countConfirmedItems()}} produit<span *ngIf="countConfirmedItems() > 1">s</span></span>
+        </div>
+        
       </div>
       <div class="elements">
         
@@ -53,8 +62,102 @@
       </div>
     </div>
     <div class="actions">
-      <button class="ui big add-product-final button" (click)="rejectProduct()">Annuler</button>
-      <button class="ui blue big button add-product-final">Confirmer</button>
+      <button class="ui big add-product-final button" (click)="rejectProduct(true)">Annuler</button>
+      <button  [disabled]="product.length == 0" class="ui blue big button add-product-final" (click)="confirmProduct()">Confirmer</button>
     </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="ui modal construction-continue-modal">
+  <i class="close icon"></i>
+  <div class="header hyuz">
+    <div>
+      <i class="shopping cart icon"></i>
+      <span>{{countConfirmedItems()}} produit<span *ngIf="countConfirmedItems() > 1">s</span></span>
+    </div>
+    <span>{{product_ordered_list[ product_ordered_list.length - 1 ]?.final_price}} DT</span>
+    
+  </div>
+  <div class="image content">
+    <div class="ui medium image">
+      <img src="{{ productType?.image|defaultProductImage }}" />
+    </div>
+    <div class="description">
+      
+      <table class="ui striped very mini compact table" 
+      *ngIf="product_ordered_list.length > 0 && productType">
+        <tr class="center aligned">
+          <th>Élément</th>
+          <th>Grammes</th>
+          <th>Prix/gramme</th>
+          <th>Prix</th>
+        </tr>
+        <tr  class="center aligned" *ngFor="let e of product_ordered_list[ product_ordered_list.length - 1 ].customRecipes">
+          <td>{{e.ingredient.name}}</td>
+          <td>{{e.grammes}}g</td>
+          <td>{{e.gramme_price}} DT</td>
+          <td>{{ parseForPrintGrammePrice( e.gramme_price , e.grammes )}} DT</td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button" (click)="addAndNew()">
+      Confirmer et nouveau
+    </div>
+    <div class="ui positive right labeled icon button" (click)="cartInvoice()">
+      Facturer le panier
+      <i class="file alternate outline icon"></i>
+    </div>
+  </div>
+</div>
+
+<!--Facturation-->
+
+<div class="ui large modal construction-facturation-modal">
+  <div class="header hyuz">
+
+    <span>Facturation</span>
+    <span>{{calcFinalPrice()}}DT</span>
+    
+  </div>
+
+    <div class="content loskzej">
+      
+      <table class="facture-table ui structured striped very compact small table" *ngFor="let item of product_ordered_list">
+        <tr class="jalo">
+          <th colspan="4">{{item?.customRecipes[0]?.product?.name}}</th>
+        </tr>
+        <tr class="center aligned">
+          <th>Élément</th>
+          <th>Grammes</th>
+          <th>Prix/gramme</th>
+          <th>Prix</th>
+        </tr>
+        <tr  class="center aligned" *ngFor="let e of item.customRecipes">
+          <td>{{e.ingredient.name}}</td>
+          <td>{{e.grammes}}g</td>
+          <td>{{e.gramme_price}} DT</td>
+          <td>{{ parseForPrintGrammePrice( e.gramme_price , e.grammes )}} DT</td>
+        </tr>
+        <tr>
+          <td colspan="4" class="price-row-invoice">
+            <b>{{item?.final_price}}DT</b>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+    
+  <div class="actions">
+    <button class="ui button blue big">Facturer</button>
   </div>
 </div>

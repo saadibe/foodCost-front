@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit, ViewChildren, QueryList, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { ConstructionItem, ConstructionModel } from 'src/app/models/construction.model';
 import { DragItem, emptyElementsLoad, emptyProductsLoad, onChooseProduct, onRejectProduct, RemovedItem } from './item.dragdrop.actions';
 declare var $: any;
 @Component({
@@ -14,6 +15,11 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
   isDragged = false
   price: number = 0
   productType: any = null;
+
+  setting_new_product = true
+  //result to get all constructions and make facture 
+  product_ordered_list = []
+
   @ViewChildren('GRAMMAGES') GRAMMAGES!: QueryList<ElementRef>;
 
   constructor() {
@@ -41,23 +47,29 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     //clear all data
     onChooseProduct.next(null);
+    $(".construction-continue-modal").remove()
+    $(".construction-facturation-modal").remove()
   }
 
 
 
   ngAfterViewInit(): void {
-    $(".convert-price").popup()
+    $(".construction-continue-modal").modal()
+    $(".construction-facturation-modal").modal()
   }
 
   ngOnInit(): void {
   }
 
   //product has been projected, everything will reset
-  rejectProduct(){
+  rejectProduct( emptyAll = false){
     this.productType = null
     onRejectProduct.next(false)
     this.price = 0
     this.product = []
+    this.setting_new_product = true
+    if( emptyAll )
+    this.product_ordered_list = []
   }
 
   //toggle the bar on responsive mode
@@ -93,7 +105,7 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
   calcPrice(){
     this.price = 0
     this.product.map( e=>{
-      this.price =  this.price + (e.gramme *  e.gramme_price  )
+      this.price =  this.price + parseFloat( (e.gramme *  e.gramme_price).toFixed(2)  )
       this.price = parseFloat( this.price.toFixed(2) )
     })
   }
@@ -120,4 +132,67 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
       this.calcPrice()
     }
   }
+
+
+  confirmProduct(){
+    let t = this.makeProduct()
+    if( this.setting_new_product ){
+      this.product_ordered_list.push( t )
+      this.setting_new_product = false
+    }
+    else
+      this.product_ordered_list[ this.product_ordered_list.length - 1 ] = t
+
+    $(".construction-continue-modal").modal('show')
+    console.log( t )
+  }
+  
+  countConfirmedItems(){
+    return this.product_ordered_list.filter(e=>e.confirmed).length
+  }
+  getConfirmedItems(){
+    return this.product_ordered_list.filter(e=>e.confirmed)
+  }
+
+  makeProduct(){
+    let item = new ConstructionModel()
+    item.label = Math.random().toString(36).substring(7)
+    item.discount = Math.floor(Math.random() * 25)
+    item.qrcode = "UNDEFINED"
+    item.final_price = this.price
+
+    this.product.forEach( e=>{
+      item.customRecipes.push(
+        new ConstructionItem(e.gramme, e.gramme_price, {id: e.id, name: e.name}, {
+          id: this.productType.id,
+          name: this.productType.name,
+          image: this.productType.image
+        })
+      )
+    })
+    return item
+  }
+
+  addAndNew(){
+    this.product_ordered_list[this.product_ordered_list.length - 1].confirmed = true
+    $(".construction-continue-modal").modal('hide')
+    this.rejectProduct()
+  }
+
+  cartInvoice(){
+    $(".construction-facturation-modal").modal('show')
+  }
+
+  parseForPrintGrammePrice(x, y){
+    return parseFloat( (x*y).toFixed(2) )
+  }
+
+  calcFinalPrice(){
+    let final_price = 0
+    this.product_ordered_list.forEach(e=>{
+      final_price += e.final_price
+    })
+    return final_price
+  }
+
 }

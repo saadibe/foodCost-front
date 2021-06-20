@@ -136,7 +136,7 @@ input[type=number] {
     .count{
         font-size: x-large;margin-bottom: 0.5rem;
         position: absolute;
-        bottom: -3rem;
+        bottom: -4rem;
         left: 1rem;
         span{
             font-size: initial;
@@ -167,7 +167,14 @@ input[type=number] {
     width: 100%;
     text-align: center;
 }
+.description{
+    width: 100% !important;
 
+    height: 12rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
 @media screen and(max-width: 1020px) and (min-width: 900px){
     .product-image {
         width: 15rem !important;
@@ -230,6 +237,39 @@ input[type=number] {
 .beside {
     transform: scale(1.5) translateX(-1.5rem) !important;
   }
+}
+.hyuz{
+    display: flex !important;
+}
+.facture-table{
+    border: none !important;
+}
+.jalo{
+    background: #e8f0f5 !important;
+    padding: 2px;
+    font-size: initial;
+    border: none !important;
+}
+.loskzej{
+    height: 30rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.cart-invoice:hover{
+    font-weight: 600;
+    transform: scale(1.1);
+    transition: all 0.2s;
+    color: #2185d0 !important;
+    cursor: pointer;
+    i{
+        color: #2185d0 !important;;
+    }
+}
+
+.price-row-invoice{
+    background: #e8f0f5;
 }
 
 @media screen and (max-width: 395px){
