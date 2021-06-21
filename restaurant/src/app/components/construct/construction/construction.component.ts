@@ -17,7 +17,6 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
   isDragged = false
   price: number = 0
   productType: any = null;
-
   setting_new_product = true
   //result to get all constructions and make facture 
   product_ordered_list = []
@@ -58,6 +57,8 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     $(".construction-continue-modal").modal()
     $(".construction-facturation-modal").modal()
+    $(".paiment-way-invoice-construction").dropdown()
+    $(".paiment-way-invoice-construction").dropdown('set selected', 'CB')
   }
 
   ngOnInit(): void {
@@ -70,8 +71,9 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
     this.price = 0
     this.product = []
     this.setting_new_product = true
-    if( emptyAll )
-    this.product_ordered_list = []
+    if( emptyAll ){
+      this.product_ordered_list = []
+    }
   }
 
   //toggle the bar on responsive mode
@@ -146,7 +148,7 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
       this.product_ordered_list[ this.product_ordered_list.length - 1 ] = t
 
     $(".construction-continue-modal").modal('show')
-    console.log( t )
+    
   }
   
   countConfirmedItems(){
@@ -241,10 +243,11 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
       invoice.final_price = invoice.final_price + e.final_price
       invoice.old_price = invoice.old_price + e.old_price
       invoice.global_discount = invoice.global_discount + e.discount
+      e.label = document.getElementById("label-invoice-i78l")['value']
     })
     invoice.created_at = this.getInvoiceDate( true )
     invoice.constructions = this.product_ordered_list
-    invoice.paymentType = "CB"
+    invoice.paymentType = $(".paiment-way-invoice-construction").dropdown('get value')
 
     console.log( invoice )
     this.constructionService.create( invoice ).subscribe(console.log)

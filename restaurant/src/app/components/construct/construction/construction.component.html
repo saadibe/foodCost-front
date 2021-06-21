@@ -131,15 +131,29 @@
   </div>
 
     <div class="content loskzej">
-      
+      <div>
+        <span>Méthode de paiment</span>
+        <div class="ui fluid selection dropdown paiment-way-invoice-construction">
+          <input type="hidden" name="paiment_type">
+          <i class="dropdown icon"></i>
+          <div class="default text">Méthode de paiment</div>
+          <div class="menu">
+            <div class="item" data-value="CB"><i class="credit card icon inrt88"></i>Carte Banquaire</div>
+            <div class="item" data-value="CHQ"><img src="assets/cheque.png"/>Chéque</div>
+            <div class="item" data-value="ESP"><i class="money bill alternate icon inrt88"></i>Espéce</div>
+          </div>
+        </div>
+      </div>
       <table class="facture-table ui structured striped very compact small table" *ngFor="let item of product_ordered_list">
         <tr class="jalo">
           <th colspan="4">
             <div class="facture-header">
             <span>{{item?.customRecipes[0]?.product?.name}}</span>
             
-              <input placeholder="remise: 0%" type="number" (keyup)="discountInvoice(item, $event)"/>
-        
+            <div class="ui input right icon">
+              <input autofocus placeholder="remise: 0" type="number" (keyup)="discountInvoice(item, $event)"/>
+              <i class="percent grey icon"></i>
+            </div>
           </div>
           </th>
         </tr>
@@ -168,7 +182,7 @@
     
   <div class="actions azht85">
     <div class="ui input">
-      <input type="text" placeholder="description..."/>
+      <input type="text" placeholder="description..." id="label-invoice-i78l"/>
     </div>
 
     <button class="ui button blue big" (click)="createInvoice()">Facturer</button>

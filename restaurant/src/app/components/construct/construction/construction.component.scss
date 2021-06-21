@@ -181,11 +181,12 @@ input[type=number] {
     justify-content: space-between;
     input{
         width: 10rem;
-        padding-right: 0 !important;
         padding: 0;
-        background: #ffdbdb;
+        background: #f8696921;//#ffdbdb;
         border-radius: 0;
         border: none;
+    }
+    .input{
         margin-right: -10px;
     }
 }
@@ -302,7 +303,9 @@ input[type=number] {
 .price-row-invoice{
     background: #e8f0f5;
 }
-
+.inrt88{
+    font-size: 1.3rem;
+}
 @media screen and (max-width: 395px){
     .go-side-900{
         transform: translateX(0) !important;
