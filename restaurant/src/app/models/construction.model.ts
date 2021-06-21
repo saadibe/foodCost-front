@@ -18,11 +18,10 @@ export class ConstructionItem{
 export class ConstructionModel{
     public confirmed: boolean = false
     public id: number;
-    public created_at: string; //"2021-06-20 16:40"
     public label: string = "";
-    public qrcode: string = "";
     public discount: number;
     public old_price: number;
     public final_price: number;
     public customRecipes: Array<ConstructionItem> = new Array();
+    public invoice: ItemId = null
 }

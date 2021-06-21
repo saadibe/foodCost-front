@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConstructionModel } from 'src/app/models/construction.model';
+import { InvoiceConstruction } from 'src/app/models/invoice.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class ConstructionService {
   }
 
 
-  public create( construction: ConstructionModel ){
-    return this.http.post<ConstructionModel>( this.BASE_URL, construction, {headers:{'Content-Type':'application/json'}} )
+  public create( invoiceConstruction: InvoiceConstruction ){
+    return this.http.post<ConstructionModel>( `${this.BASE_URL}/as-invoice`, invoiceConstruction, {headers:{'Content-Type':'application/json'}} )
   }
 
 }

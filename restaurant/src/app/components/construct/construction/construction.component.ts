@@ -1,6 +1,8 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit, ViewChildren, QueryList, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { ConstructionItem, ConstructionModel } from 'src/app/models/construction.model';
+import { InvoiceConstruction } from 'src/app/models/invoice.model';
+import { ConstructionService } from 'src/app/services/construction/construction.service';
 import { DragItem, emptyElementsLoad, emptyProductsLoad, onChooseProduct, onRejectProduct, RemovedItem } from './item.dragdrop.actions';
 declare var $: any;
 @Component({
@@ -22,7 +24,7 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChildren('GRAMMAGES') GRAMMAGES!: QueryList<ElementRef>;
 
-  constructor() {
+  constructor(private constructionService: ConstructionService) {
     //reste en écoute si les produits ou les éléments n'existe pas
     emptyProductsLoad.subscribe(res => this.productEmptyList = res)
     emptyElementsLoad.subscribe(res => this.elementsEmptyList = res )
@@ -158,7 +160,6 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
     let item = new ConstructionModel()
     item.label = Math.random().toString(36).substring(7)
     item.discount = 0
-    item.qrcode = "UNDEFINED"
     item.final_price = this.price
     item.old_price = this.price
 
@@ -209,10 +210,44 @@ export class ConstructionComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getInvoiceDate(with_time = false){
     let today = new Date();
-    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let m = ''
+    let d = ''
+    let h = ''
+    let mn = ''
+
+    if( today.getMonth() + 1 < 10) m = `0${today.getMonth()+1}`
+    else m = `${today.getMonth()+1}`
+
+    if( today.getDate() < 10) d = `0${today.getDate()}`
+    else d = `${today.getDate()}`
+
+    if( today.getHours() < 10) h = `0${today.getHours()}`
+    else h = `${today.getHours()}`
+
+    if( today.getMinutes() < 10) mn = `0${today.getMinutes()}`
+    else mn = `${today.getMinutes()}`
+    
+    let date = `${today.getFullYear()}-${m}-${d}`
     if( !with_time ) return date
-    date+=" "+today.getHours() + ":" + today.getMinutes()
+    date+=` ${h}:${mn}`
+    
     return date
+  }
+
+  createInvoice(){
+    
+    let invoice = new InvoiceConstruction()
+    this.product_ordered_list.forEach(e=>{
+      invoice.final_price = invoice.final_price + e.final_price
+      invoice.old_price = invoice.old_price + e.old_price
+      invoice.global_discount = invoice.global_discount + e.discount
+    })
+    invoice.created_at = this.getInvoiceDate( true )
+    invoice.constructions = this.product_ordered_list
+    invoice.paymentType = "CB"
+
+    console.log( invoice )
+    this.constructionService.create( invoice ).subscribe(console.log)
   }
 
 }
